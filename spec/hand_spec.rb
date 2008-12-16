@@ -131,6 +131,18 @@ describe Hand do
     end
   end
 
+  describe '#flush?' do
+    it "should return true with a flush" do
+      @flush.should be_flush
+      @straight_flush.should be_flush
+    end
+
+    it "should return false otherwise" do
+      @straight.should_not be_flush
+      @full_house.should_not be_flush
+    end
+  end
+
   describe '#full_house?' do
     it "should return true with a full house" do
       @full_house.should be_full_house

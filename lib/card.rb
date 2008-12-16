@@ -1,4 +1,6 @@
 class Card
+  SUITS = ['Spades', 'Diamonds', 'Clubs', 'Hearts']
+
   attr_accessor :value
   attr_accessor :suit
 

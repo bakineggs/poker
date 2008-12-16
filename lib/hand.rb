@@ -20,6 +20,13 @@ class Hand
     set? && two_pair?
   end
 
+  def flush?
+    Card::SUITS.any? do |suit|
+      cards = @cards.select{|card| card.suit == suit}
+      cards.length >= 5
+    end
+  end
+
   def straight?
     values = @cards.map{|card| card.value}.uniq.sort
     values.unshift 1 if values.include?(14) # ace can be low
