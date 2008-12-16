@@ -37,6 +37,13 @@ describe Hand do
       Card.new('Spades', 7),
       Card.new('Diamonds', 8)
     )
+    @wheel = Hand.new(
+      Card.new('Spades', 14),
+      Card.new('Clubs', 2),
+      Card.new('Hearts', 5),
+      Card.new('Spades', 3),
+      Card.new('Diamonds', 4)
+    )
     @set = Hand.new(
       Card.new('Spades', 6),
       Card.new('Clubs', 6),
@@ -115,6 +122,7 @@ describe Hand do
     it "should return true with a straight" do
       @straight.should be_straight
       @straight_flush.should be_straight
+      @wheel.should be_straight
     end
 
     it "should return false without" do

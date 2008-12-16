@@ -22,6 +22,7 @@ class Hand
 
   def straight?
     values = @cards.map{|card| card.value}.uniq.sort
+    values.unshift 1 if values.include?(14) # ace can be low
     previous_value = 0
     count = 0
     values.each do |value|
