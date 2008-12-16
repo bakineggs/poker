@@ -16,6 +16,10 @@ class Hand
     end
   end
 
+  def full_house?
+    set? && two_pair?
+  end
+
   def set?
     matches.any? do |cards|
       cards.length >= 3

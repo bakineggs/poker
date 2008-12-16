@@ -108,6 +108,18 @@ describe Hand do
     end
   end
 
+  describe '#full_house?' do
+    it "should return true with a full house" do
+      @full_house.should be_full_house
+    end
+
+    it "should return false without a full house" do
+      @two_pair.should_not be_full_house
+      @quads.should_not be_full_house
+      @flush.should_not be_full_house
+    end
+  end
+
   describe '#quads?' do
     it "should return true with quads" do
       @quads.should be_quads
