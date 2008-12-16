@@ -10,11 +10,24 @@ class Hand
     end
   end
 
-  def pair?
-    @cards.any?{|card|
-      (@cards-[card]).any?{|other_card|
-        card.value == other_card.value
-      }
-    }
+  def set?
+    matches.any? do |cards|
+      cards.length >= 3
+    end
   end
+
+  def pair?
+    matches.length > 0
+  end
+
+  private
+    def matches
+      matches = []
+      values = @cards.map{|card| card.value}.uniq
+      values.each do |value|
+        cards = @cards.select{|card| card.value == value}
+        matches.push cards if cards.length > 1
+      end
+      matches
+    end
 end
