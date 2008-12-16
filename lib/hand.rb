@@ -10,14 +10,24 @@ class Hand
     end
   end
 
+  def quads?
+    matches.any? do |cards|
+      cards.length >= 4
+    end
+  end
+
   def set?
     matches.any? do |cards|
       cards.length >= 3
     end
   end
 
+  def two_pair?
+    matches.length >= 2
+  end
+
   def pair?
-    matches.length > 0
+    matches.length >= 1
   end
 
   private

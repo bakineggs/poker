@@ -82,6 +82,17 @@ describe Hand do
     end
   end
 
+  describe '#two_pair?' do
+    it "should return true with two pair" do
+      @two_pair.two_pair?.should == true
+    end
+
+    it "should return false without" do
+      @set.two_pair?.should == false
+      @flush.two_pair?.should == false
+    end
+  end
+
   describe '#set?' do
     it "should return true with a set" do
       @set.set?.should == true
@@ -94,6 +105,17 @@ describe Hand do
       @pair.set?.should == false
       @high_card.set?.should == false
       @flush.set?.should == false
+    end
+  end
+
+  describe '#quads?' do
+    it "should return true with quads" do
+      @quads.quads?.should == true
+    end
+
+    it "should return false without" do
+      @set.quads?.should == false
+      @two_pair.quads?.should == false
     end
   end
 end
