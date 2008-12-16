@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'spec'
+
 libdir = File.dirname(__FILE__) + '/../lib'
 
 require libdir + '/card'
