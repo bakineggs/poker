@@ -165,4 +165,27 @@ describe Hand do
       @two_pair.should_not be_quads
     end
   end
+
+  describe '#straight_flush?' do
+    it "should return true with a straight flush" do
+      @straight_flush.should be_straight_flush
+    end
+
+    it "should return false otherwise" do
+      @flush.should_not be_straight_flush
+      @straight.should_not be_straight_flush
+      @full_house.should_not be_straight_flush
+    end
+
+    it "should return false for a hand with both a straight and flush" do
+      Hand.new(
+        Card.new('Spades', 14),
+        Card.new('Spades', 10),
+        Card.new('Spades', 9),
+        Card.new('Clubs', 8),
+        Card.new('Spades', 7),
+        Card.new('Spades', 6)
+      ).should_not be_straight_flush
+    end
+  end
 end

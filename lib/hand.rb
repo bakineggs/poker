@@ -10,6 +10,13 @@ class Hand
     end
   end
 
+  def straight_flush?
+    Card::SUITS.any? do |suit|
+      cards = @cards.select{|card| card.suit == suit}
+      Hand.new(*cards).straight?
+    end
+  end
+
   def quads?
     matches.any? do |cards|
       cards.length >= 4
