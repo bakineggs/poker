@@ -111,6 +111,18 @@ describe Hand do
     end
   end
 
+  describe '#straight?' do
+    it "should return true with a straight" do
+      @straight.should be_straight
+      @straight_flush.should be_straight
+    end
+
+    it "should return false without" do
+      @set.should_not be_straight
+      @flush.should_not be_straight
+    end
+  end
+
   describe '#full_house?' do
     it "should return true with a full house" do
       @full_house.should be_full_house

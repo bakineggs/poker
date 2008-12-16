@@ -20,6 +20,22 @@ class Hand
     set? && two_pair?
   end
 
+  def straight?
+    values = @cards.map{|card| card.value}.uniq.sort
+    previous_value = 0
+    count = 0
+    values.each do |value|
+      if value == previous_value + 1
+        count += 1
+      else
+        count = 1
+      end
+      return true if count == 5
+      previous_value = value
+    end
+    false
+  end
+
   def set?
     matches.any? do |cards|
       cards.length >= 3
