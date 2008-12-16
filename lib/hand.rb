@@ -11,14 +11,13 @@ class Hand
   end
 
   def straight_flush?
-    Card::SUITS.any? do |suit|
-      cards = @cards.select{|card| card.suit == suit}
+    suited_cards.any? do |cards|
       Hand.new(*cards).straight?
     end
   end
 
   def quads?
-    matches.any? do |cards|
+    matched_cards.any? do |cards|
       cards.length >= 4
     end
   end
@@ -28,8 +27,7 @@ class Hand
   end
 
   def flush?
-    Card::SUITS.any? do |suit|
-      cards = @cards.select{|card| card.suit == suit}
+    suited_cards.any? do |cards|
       cards.length >= 5
     end
   end
@@ -52,27 +50,32 @@ class Hand
   end
 
   def set?
-    matches.any? do |cards|
+    matched_cards.any? do |cards|
       cards.length >= 3
     end
   end
 
   def two_pair?
-    matches.length >= 2
+    matched_cards.length >= 2
   end
 
   def pair?
-    matches.length >= 1
+    matched_cards.length >= 1
   end
 
   private
-    def matches
-      matches = []
-      values = @cards.map{|card| card.value}.uniq
-      values.each do |value|
+    def matched_cards
+      matched_cards = []
+      @cards.map{|card| card.value}.uniq.each do |value|
         cards = @cards.select{|card| card.value == value}
-        matches.push cards if cards.length > 1
+        matched_cards.push cards if cards.length > 1
       end
-      matches
+      matched_cards
+    end
+
+    def suited_cards
+      @cards.map{|card| card.suit}.uniq.map do |suit|
+        @cards.select{|card| card.suit == suit}
+      end
     end
 end
