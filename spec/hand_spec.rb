@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/helper'
 
-describe 'straight flush' do
+describe Hand do
   before do
     @straight_flush = Hand.new(
       Card.new('Spades', 6),
@@ -9,43 +9,6 @@ describe 'straight flush' do
       Card.new('Spades', 7),
       Card.new('Spades', 8)
     )
-  end
-
-  it 'should be a straight flush' do
-    @straight_flush.should be_straight_flush
-  end
-
-  it 'should be a flush' do
-    @straight_flush.should be_flush
-  end
-
-  it 'should be a straight' do
-    @straight_flush.should be_straight
-  end
-
-  it 'should not be anything else' do
-    @straight_flush.should_not be_pair
-    @straight_flush.should_not be_two_pair
-    @straight_flush.should_not be_set
-    @straight_flush.should_not be_full_house
-    @straight_flush.should_not be_quads
-  end
-
-  describe 'wheel' do
-    it 'should be a straight flush' do
-      Hand.new(
-        Card.new('Spades', 14),
-        Card.new('Spades', 2),
-        Card.new('Spades', 3),
-        Card.new('Spades', 4),
-        Card.new('Spades', 5)
-      ).should be_straight_flush
-    end
-  end
-end
-
-describe 'quads' do
-  before do
     @quads = Hand.new(
       Card.new('Hearts', 6),
       Card.new('Spades', 6),
@@ -53,31 +16,6 @@ describe 'quads' do
       Card.new('Spades', 7),
       Card.new('Diamonds', 6)
     )
-  end
-
-  it 'should be quads' do
-    @quads.should be_quads
-  end
-
-  it 'should be a set' do
-    @quads.should be_set
-  end
-
-  it 'should be a pair' do
-    @quads.should be_set
-  end
-
-  it 'should not be anything else' do
-    @quads.should_not be_two_pair
-    @quads.should_not be_straight
-    @quads.should_not be_flush
-    @quads.should_not be_full_house
-    @quads.should_not be_straight_flush
-  end
-end
-
-describe 'full house' do
-  before do
     @full_house = Hand.new(
       Card.new('Spades', 6),
       Card.new('Hearts', 6),
@@ -85,34 +23,6 @@ describe 'full house' do
       Card.new('Spades', 7),
       Card.new('Clubs', 7)
     )
-  end
-
-  it 'should be a full house' do
-    @full_house.should be_full_house
-  end
-
-  it 'should be a set' do
-    @full_house.should be_set
-  end
-
-  it 'should be two pair' do
-    @full_house.should be_two_pair
-  end
-
-  it 'should be a pair' do
-    @full_house.should be_pair
-  end
-
-  it 'should not be anything else' do
-    @full_house.should_not be_straight
-    @full_house.should_not be_flush
-    @full_house.should_not be_quads
-    @full_house.should_not be_straight_flush
-  end
-end
-
-describe 'flush' do
-  before do
     @flush = Hand.new(
       Card.new('Spades', 6),
       Card.new('Spades', 12),
@@ -120,25 +30,6 @@ describe 'flush' do
       Card.new('Spades', 7),
       Card.new('Spades', 8)
     )
-  end
-
-  it 'should be a flush' do
-    @flush.should be_flush
-  end
-
-  it 'should not be anything else' do
-    @flush.should_not be_pair
-    @flush.should_not be_two_pair
-    @flush.should_not be_set
-    @flush.should_not be_straight
-    @flush.should_not be_full_house
-    @flush.should_not be_quads
-    @flush.should_not be_straight_flush
-  end
-end
-
-describe 'straight' do
-  before do
     @straight = Hand.new(
       Card.new('Spades', 6),
       Card.new('Clubs', 5),
@@ -146,37 +37,6 @@ describe 'straight' do
       Card.new('Diamonds', 7),
       Card.new('Hearts', 8)
     )
-  end
-
-  it 'should be a straight' do
-    @straight.should be_straight
-  end
-
-  it 'should not be anything else' do
-    @straight.should_not be_pair
-    @straight.should_not be_two_pair
-    @straight.should_not be_set
-    @straight.should_not be_flush
-    @straight.should_not be_full_house
-    @straight.should_not be_quads
-    @straight.should_not be_straight_flush
-  end
-
-  describe 'wheel' do
-    it 'should be a straight' do
-      Hand.new(
-        Card.new('Spades', 14),
-        Card.new('Clubs', 2),
-        Card.new('Spades', 3),
-        Card.new('Hearts', 4),
-        Card.new('Diamonds', 5)
-      ).should be_straight
-    end
-  end
-end
-
-describe 'set' do
-  before do
     @set = Hand.new(
       Card.new('Spades', 6),
       Card.new('Hearts', 6),
@@ -184,28 +44,6 @@ describe 'set' do
       Card.new('Clubs', 6),
       Card.new('Diamonds', 8)
     )
-  end
-
-  it 'should be a set' do
-    @set.should be_set
-  end
-
-  it 'should be a pair' do
-    @set.should be_pair
-  end
-
-  it 'should not be anything else' do
-    @set.should_not be_two_pair
-    @set.should_not be_straight
-    @set.should_not be_flush
-    @set.should_not be_full_house
-    @set.should_not be_quads
-    @set.should_not be_straight_flush
-  end
-end
-
-describe 'two pair' do
-  before do
     @two_pair = Hand.new(
       Card.new('Spades', 6),
       Card.new('Hearts', 5),
@@ -213,28 +51,6 @@ describe 'two pair' do
       Card.new('Diamonds', 5),
       Card.new('Spades', 8)
     )
-  end
-
-  it 'should be two pair' do
-    @two_pair.should be_two_pair
-  end
-
-  it 'should be a pair' do
-    @two_pair.should be_pair
-  end
-
-  it 'should not be anything else' do
-    @two_pair.should_not be_set
-    @two_pair.should_not be_straight
-    @two_pair.should_not be_flush
-    @two_pair.should_not be_full_house
-    @two_pair.should_not be_quads
-    @two_pair.should_not be_straight_flush
-  end
-end
-
-describe 'pair' do
-  before do
     @pair = Hand.new(
       Card.new('Hearts', 6),
       Card.new('Spades', 5),
@@ -242,25 +58,6 @@ describe 'pair' do
       Card.new('Diamonds', 7),
       Card.new('Spades', 8)
     )
-  end
-
-  it 'should be a pair' do
-    @pair.should be_pair
-  end
-
-  it 'should not be anything else' do
-    @pair.should_not be_two_pair
-    @pair.should_not be_set
-    @pair.should_not be_straight
-    @pair.should_not be_flush
-    @pair.should_not be_full_house
-    @pair.should_not be_quads
-    @pair.should_not be_full_house
-  end
-end
-
-describe 'high card' do
-  before do
     @high_card = Hand.new(
       Card.new('Hearts', 6),
       Card.new('Spades', 12),
@@ -270,39 +67,220 @@ describe 'high card' do
     )
   end
 
-  it 'should not be anything else' do
-    @high_card.should_not be_pair
-    @high_card.should_not be_two_pair
-    @high_card.should_not be_set
-    @high_card.should_not be_straight
-    @high_card.should_not be_flush
-    @high_card.should_not be_full_house
-    @high_card.should_not be_quads
-    @high_card.should_not be_straight_flush
-  end
-end
+  describe 'straight flush' do
+    it 'should be a straight flush' do
+      @straight_flush.should be_straight_flush
+    end
 
-describe 'straight and flush' do
-  before do
-    @straight_and_flush = Hand.new(
-      Card.new('Spades', 14),
-      Card.new('Spades', 10),
-      Card.new('Spades', 9),
-      Card.new('Clubs', 8),
-      Card.new('Spades', 7),
-      Card.new('Spades', 6)
-    )
+    it 'should be a flush' do
+      @straight_flush.should be_flush
+    end
+
+    it 'should be a straight' do
+      @straight_flush.should be_straight
+    end
+
+    it 'should not be anything else' do
+      @straight_flush.should_not be_pair
+      @straight_flush.should_not be_two_pair
+      @straight_flush.should_not be_set
+      @straight_flush.should_not be_full_house
+      @straight_flush.should_not be_quads
+    end
+
+    describe 'wheel' do
+      it 'should be a straight flush' do
+        Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Spades', 2),
+          Card.new('Spades', 3),
+          Card.new('Spades', 4),
+          Card.new('Spades', 5)
+        ).should be_straight_flush
+      end
+    end
   end
 
-  it 'should be a straight' do
-    @straight_and_flush.should be_straight
+  describe 'quads' do
+    it 'should be quads' do
+      @quads.should be_quads
+    end
+
+    it 'should be a set' do
+      @quads.should be_set
+    end
+
+    it 'should be a pair' do
+      @quads.should be_set
+    end
+
+    it 'should not be anything else' do
+      @quads.should_not be_two_pair
+      @quads.should_not be_straight
+      @quads.should_not be_flush
+      @quads.should_not be_full_house
+      @quads.should_not be_straight_flush
+    end
   end
 
-  it 'should be a flush' do
-    @straight_and_flush.should be_flush
+  describe 'full house' do
+    it 'should be a full house' do
+      @full_house.should be_full_house
+    end
+
+    it 'should be a set' do
+      @full_house.should be_set
+    end
+
+    it 'should be two pair' do
+      @full_house.should be_two_pair
+    end
+
+    it 'should be a pair' do
+      @full_house.should be_pair
+    end
+
+    it 'should not be anything else' do
+      @full_house.should_not be_straight
+      @full_house.should_not be_flush
+      @full_house.should_not be_quads
+      @full_house.should_not be_straight_flush
+    end
   end
 
-  it 'should not be a straight flush' do
-    @straight_and_flush.should_not be_straight_flush
+  describe 'flush' do
+    it 'should be a flush' do
+      @flush.should be_flush
+    end
+
+    it 'should not be anything else' do
+      @flush.should_not be_pair
+      @flush.should_not be_two_pair
+      @flush.should_not be_set
+      @flush.should_not be_straight
+      @flush.should_not be_full_house
+      @flush.should_not be_quads
+      @flush.should_not be_straight_flush
+    end
+  end
+
+  describe 'straight' do
+    it 'should be a straight' do
+      @straight.should be_straight
+    end
+
+    it 'should not be anything else' do
+      @straight.should_not be_pair
+      @straight.should_not be_two_pair
+      @straight.should_not be_set
+      @straight.should_not be_flush
+      @straight.should_not be_full_house
+      @straight.should_not be_quads
+      @straight.should_not be_straight_flush
+    end
+
+    describe 'wheel' do
+      it 'should be a straight' do
+        Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Clubs', 2),
+          Card.new('Spades', 3),
+          Card.new('Hearts', 4),
+          Card.new('Diamonds', 5)
+        ).should be_straight
+      end
+    end
+  end
+
+  describe 'set' do
+    it 'should be a set' do
+      @set.should be_set
+    end
+
+    it 'should be a pair' do
+      @set.should be_pair
+    end
+
+    it 'should not be anything else' do
+      @set.should_not be_two_pair
+      @set.should_not be_straight
+      @set.should_not be_flush
+      @set.should_not be_full_house
+      @set.should_not be_quads
+      @set.should_not be_straight_flush
+    end
+  end
+
+  describe 'two pair' do
+    it 'should be two pair' do
+      @two_pair.should be_two_pair
+    end
+
+    it 'should be a pair' do
+      @two_pair.should be_pair
+    end
+
+    it 'should not be anything else' do
+      @two_pair.should_not be_set
+      @two_pair.should_not be_straight
+      @two_pair.should_not be_flush
+      @two_pair.should_not be_full_house
+      @two_pair.should_not be_quads
+      @two_pair.should_not be_straight_flush
+    end
+  end
+
+  describe 'pair' do
+    it 'should be a pair' do
+      @pair.should be_pair
+    end
+
+    it 'should not be anything else' do
+      @pair.should_not be_two_pair
+      @pair.should_not be_set
+      @pair.should_not be_straight
+      @pair.should_not be_flush
+      @pair.should_not be_full_house
+      @pair.should_not be_quads
+      @pair.should_not be_full_house
+    end
+  end
+
+  describe 'high card' do
+    it 'should not be anything else' do
+      @high_card.should_not be_pair
+      @high_card.should_not be_two_pair
+      @high_card.should_not be_set
+      @high_card.should_not be_straight
+      @high_card.should_not be_flush
+      @high_card.should_not be_full_house
+      @high_card.should_not be_quads
+      @high_card.should_not be_straight_flush
+    end
+  end
+
+  describe 'straight and flush' do
+    before do
+      @straight_and_flush = Hand.new(
+        Card.new('Spades', 14),
+        Card.new('Spades', 10),
+        Card.new('Spades', 9),
+        Card.new('Clubs', 8),
+        Card.new('Spades', 7),
+        Card.new('Spades', 6)
+      )
+    end
+
+    it 'should be a straight' do
+      @straight_and_flush.should be_straight
+    end
+
+    it 'should be a flush' do
+      @straight_and_flush.should be_flush
+    end
+
+    it 'should not be a straight flush' do
+      @straight_and_flush.should_not be_straight_flush
+    end
   end
 end
