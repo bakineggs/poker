@@ -70,6 +70,7 @@ describe Hand do
   describe '#pair?' do
     it "should return true with a pair" do
       @pair.should be_pair
+      @two_pair.should be_pair
       @set.should be_pair
       @quads.should be_pair
       @full_house.should be_pair
@@ -85,9 +86,11 @@ describe Hand do
   describe '#two_pair?' do
     it "should return true with two pair" do
       @two_pair.should be_two_pair
+      @full_house.should be_two_pair
     end
 
     it "should return false without" do
+      @quads.should_not be_two_pair
       @set.should_not be_two_pair
       @flush.should_not be_two_pair
     end
