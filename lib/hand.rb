@@ -35,16 +35,8 @@ class Hand
   def straight?
     values = @cards.map{|card| card.value}.uniq.sort
     values.unshift 1 if values.include?(14) # ace can be low
-    previous_value = 0
-    count = 0
-    values.each do |value|
-      if value == previous_value + 1
-        count += 1
-      else
-        count = 1
-      end
-      return true if count == 5
-      previous_value = value
+    0.upto(values.length - 5) do |i|
+      return true if values[i] + 4 == values[i + 4]
     end
     false
   end
