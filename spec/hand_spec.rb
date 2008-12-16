@@ -69,53 +69,53 @@ describe Hand do
 
   describe '#pair?' do
     it "should return true with a pair" do
-      @pair.pair?.should == true
-      @set.pair?.should == true
-      @quads.pair?.should == true
-      @full_house.pair?.should == true
+      @pair.should be_pair
+      @set.should be_pair
+      @quads.should be_pair
+      @full_house.should be_pair
     end
 
     it "should return false without a pair" do
-      @high_card.pair?.should == false
-      @flush.pair?.should == false
-      @straight.pair?.should == false
+      @high_card.should_not be_pair
+      @flush.should_not be_pair
+      @straight.should_not be_pair
     end
   end
 
   describe '#two_pair?' do
     it "should return true with two pair" do
-      @two_pair.two_pair?.should == true
+      @two_pair.should be_two_pair
     end
 
     it "should return false without" do
-      @set.two_pair?.should == false
-      @flush.two_pair?.should == false
+      @set.should_not be_two_pair
+      @flush.should_not be_two_pair
     end
   end
 
   describe '#set?' do
     it "should return true with a set" do
-      @set.set?.should == true
-      @quads.set?.should == true
-      @full_house.set?.should == true
+      @set.should be_set
+      @quads.should be_set
+      @full_house.should be_set
     end
 
     it "should return false without one" do
-      @two_pair.set?.should == false
-      @pair.set?.should == false
-      @high_card.set?.should == false
-      @flush.set?.should == false
+      @two_pair.should_not be_set
+      @pair.should_not be_set
+      @high_card.should_not be_set
+      @flush.should_not be_set
     end
   end
 
   describe '#quads?' do
     it "should return true with quads" do
-      @quads.quads?.should == true
+      @quads.should be_quads
     end
 
     it "should return false without" do
-      @set.quads?.should == false
-      @two_pair.quads?.should == false
+      @set.should_not be_quads
+      @two_pair.should_not be_quads
     end
   end
 end
