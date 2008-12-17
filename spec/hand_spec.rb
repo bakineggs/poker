@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_quads = Hand.new(
+        Card.new('Clubs', 14),
+        Card.new('Hearts', 14),
+        Card.new('Spades', 14),
+        Card.new('Diamonds', 14),
+        Card.new('Hearts', 13)
+      )
       @highest_full_house = Hand.new(
         Card.new('Clubs', 14),
         Card.new('Hearts', 14),
@@ -335,6 +342,83 @@ describe Hand do
         Card.new('Clubs', 11),
         Card.new('Diamonds', 9)
       )
+    end
+
+    describe 'quads' do
+      before do
+        @lowest_quads = Hand.new(
+          Card.new('Clubs', 2),
+          Card.new('Hearts', 2),
+          Card.new('Spades', 2),
+          Card.new('Diamonds', 2),
+          Card.new('Hearts', 3)
+        )
+      end
+
+      it 'should beat smaller quads' do
+        @highest_quads.should > @quads
+        @quads.should > @lowest_quads
+      end
+
+      it 'should beat any full house' do
+        @lowest_quads.should > @highest_full_house
+      end
+
+      it 'should beat any flush' do
+        @lowest_quads.should > @highest_flush
+      end
+
+      it 'should beat any straight' do
+        @lowest_quads.should > @highest_straight
+      end
+
+      it 'should beat any set' do
+        @lowest_quads.should > @highest_set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_quads.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_quads.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_quads.should > @highest_high_card
+      end
+
+      it 'should consider the quads first' do
+        Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 14),
+          Card.new('Hearts', 2)
+        ).should > Hand.new(
+          Card.new('Clubs', 13),
+          Card.new('Hearts', 13),
+          Card.new('Spades', 13),
+          Card.new('Diamonds', 13),
+          Card.new('Hearts', 12)
+        )
+      end
+
+      it 'should consider the kicker if the quads are the same' do
+        Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 14),
+          Card.new('Hearts', 12)
+        ).should > Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 14),
+          Card.new('Hearts', 11)
+        )
+      end
     end
 
     describe 'full house' do

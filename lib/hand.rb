@@ -59,7 +59,11 @@ class Hand
 
   protected
     def value
-      if full_house?
+      if quads?
+        quads = matched_cards.find{|cards| cards.length == 4}
+        14 ** 11 * quads.first.value +
+        (@cards - quads).first.value
+      elsif full_house?
         set = matched_cards.find{|cards| cards.length == 3}
         14 ** 10 * set.first.value +
         14 ** 9 * (matched_cards - [set])[0][0].value
