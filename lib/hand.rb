@@ -59,7 +59,10 @@ class Hand
 
   protected
     def value
-      if quads?
+      if straight_flush?
+        14 ** 12 + 14 +
+        Hand.new(*suited_cards.find{|cards| cards.length >= 5}).straight_cards.last.last.value
+      elsif quads?
         quads = matched_cards.find{|cards| cards.length == 4}
         14 ** 11 * quads.first.value +
         (@cards - quads).first.value
@@ -87,6 +90,15 @@ class Hand
       end
     end
 
+    def straight_cards
+      (1..10).map do |low| # straight can start at a low ace up to a 10
+        high = low + 4
+        cards = (low..high).map do |value|
+          @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
+        end.compact
+      end.select{|cards| cards.length == 5}
+    end
+
   private
     def weighted_sum(cards, count)
       weighted_sum = 0
@@ -109,14 +121,5 @@ class Hand
       @cards.map{|card| card.suit}.uniq.map do |suit|
         @cards.select{|card| card.suit == suit}
       end
-    end
-
-    def straight_cards
-      (1..10).map do |low| # straight can start at a low ace up to a 10
-        high = low + 4
-        cards = (low..high).map do |value|
-          @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
-        end.compact
-      end.select{|cards| cards.length == 5}
     end
 end

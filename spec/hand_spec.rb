@@ -344,6 +344,62 @@ describe Hand do
       )
     end
 
+    describe 'straight flush' do
+      before do
+        @highest_straight_flush = Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Clubs', 13),
+          Card.new('Clubs', 12),
+          Card.new('Clubs', 11),
+          Card.new('Clubs', 10)
+        )
+        @lowest_straight_flush = Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Clubs', 2),
+          Card.new('Clubs', 3),
+          Card.new('Clubs', 4),
+          Card.new('Clubs', 5)
+        )
+      end
+
+      it 'should beat a smaller straight flush' do
+        @highest_straight_flush.should > @straight_flush
+        @straight_flush.should > @lowest_straight_flush
+      end
+
+      it 'should beat any quads' do
+        @lowest_straight_flush.should > @highest_quads
+      end
+
+      it 'should beat any full house' do
+        @lowest_straight_flush.should > @highest_full_house
+      end
+
+      it 'should beat any flush' do
+        @lowest_straight_flush.should > @highest_flush
+      end
+
+      it 'should beat any straight' do
+        @lowest_straight_flush.should > @highest_straight
+      end
+
+      it 'should beat any set' do
+        @lowest_straight_flush.should > @highest_set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_straight_flush.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_straight_flush.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_straight_flush.should > @highest_high_card
+      end
+    end
+
     describe 'quads' do
       before do
         @lowest_quads = Hand.new(
