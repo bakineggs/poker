@@ -1,4 +1,6 @@
 class Hand
+  include Comparable
+
   def initialize(*hands_or_cards)
     @cards = hands_or_cards.map do |hand_or_card|
       if hand_or_card.is_a?(Hand)
@@ -6,7 +8,7 @@ class Hand
       else
         hand_or_card
       end
-    end.flatten
+    end.flatten.sort.reverse
   end
 
   def straight_flush?
@@ -50,6 +52,19 @@ class Hand
   def pair?
     matched_cards.length >= 1
   end
+
+  def <=> other_hand
+    value <=> other_hand.value
+  end
+
+  protected
+    def value
+      sum = 0
+      @cards.first(5).each_with_index do |card, i|
+        sum += 14 ** (4 - i) * card.value
+      end
+      sum
+    end
 
   private
     def matched_cards

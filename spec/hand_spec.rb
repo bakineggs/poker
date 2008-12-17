@@ -283,4 +283,38 @@ describe Hand do
       @straight_and_flush.should_not be_straight_flush
     end
   end
+
+  describe 'rankings' do
+    before do
+      @highest_high_card = Hand.new(
+        Card.new('Hearts', 14),
+        Card.new('Spades', 13),
+        Card.new('Diamonds', 12),
+        Card.new('Clubs', 11),
+        Card.new('Diamonds', 9)
+      )
+    end
+
+    describe 'high card' do
+      it 'should beat a smaller high card' do
+        @highest_high_card.should > @high_card
+      end
+
+      it 'should beat a smaller subsequent card' do
+        Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Clubs', 13),
+          Card.new('Diamonds', 4),
+          Card.new('Hearts', 3),
+          Card.new('Clubs', 2)
+        ).should > Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Clubs', 12),
+          Card.new('Diamonds', 11),
+          Card.new('Hearts', 10),
+          Card.new('Clubs', 9)
+        )
+      end
+    end
+  end
 end

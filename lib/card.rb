@@ -1,4 +1,6 @@
 class Card
+  include Comparable
+
   SUITS = ['Spades', 'Diamonds', 'Clubs', 'Hearts']
 
   attr_accessor :value
@@ -7,5 +9,9 @@ class Card
   def initialize(suit, value)
     self.suit = suit
     self.value = value
+  end
+
+  def <=> other_card
+    value <=> other_card.value
   end
 end
