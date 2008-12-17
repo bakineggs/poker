@@ -12,45 +12,45 @@ class Hand
   end
 
   def straight_flush?
-    suited_cards.any? do |cards|
+    @straight_flush ||= suited_cards.any? do |cards|
       Hand.new(*cards).straight?
     end
   end
 
   def quads?
-    matched_cards.any? do |cards|
+    @quads ||= matched_cards.any? do |cards|
       cards.length >= 4
     end
   end
 
   def full_house?
-    set? && two_pair?
+    @full_house ||= set? && two_pair?
   end
 
   def flush?
-    suited_cards.any? do |cards|
+    @flush ||= suited_cards.any? do |cards|
       cards.length >= 5
     end
   end
 
   def straight?
-    straight_cards.any? do |cards|
+    @straight ||= straight_cards.any? do |cards|
       cards.length >= 5
     end
   end
 
   def set?
-    matched_cards.any? do |cards|
+    @set ||= matched_cards.any? do |cards|
       cards.length >= 3
     end
   end
 
   def two_pair?
-    matched_cards.length >= 2
+    @two_pair ||= matched_cards.length >= 2
   end
 
   def pair?
-    matched_cards.length >= 1
+    @pair ||= matched_cards.length >= 1
   end
 
   def <=> other_hand
@@ -63,7 +63,7 @@ class Hand
 
   protected
     def rank
-      if straight_flush?: 8
+      @rank ||= if straight_flush?: 8
       elsif quads?: 7
       elsif full_house?: 6
       elsif flush?: 5
@@ -75,9 +75,9 @@ class Hand
       end
     end
 
-    def value(ignore_suits = false)
-      if !ignore_suits && straight_flush?
-        Hand.new(*suited_cards.find{|cards| cards.length >= 5}).value(true)
+    def value
+      @value ||= if straight_flush?
+        Hand.new(*suited_cards.find{|cards| cards.length >= 5}).unsuited!.value
       elsif quads?
         quads = matched_cards.find{|cards| cards.length == 4}
         14 * quads.first.value +
@@ -86,7 +86,7 @@ class Hand
         set = matched_cards.find{|cards| cards.length == 3}
         14 * set.first.value +
         (matched_cards - [set])[0][0].value
-      elsif !ignore_suits && flush?
+      elsif flush?
         weighted_sum(suited_cards.find{|cards| cards.length >= 5}, 5)
       elsif straight?
         straight_cards.last.last.value
@@ -105,6 +105,11 @@ class Hand
       end
     end
 
+    def unsuited!
+      @suited_cards = []
+      self
+    end
+
   private
     def weighted_sum(cards, count)
       weighted_sum = 0
@@ -115,22 +120,20 @@ class Hand
     end
 
     def matched_cards
-      matched_cards = []
-      @cards.map{|card| card.value}.uniq.each do |value|
+      @matched_cards ||= @cards.map{|card| card.value}.uniq.map do |value|
         cards = @cards.select{|card| card.value == value}
-        matched_cards.push cards if cards.length > 1
-      end
-      matched_cards
+        cards.length > 1 ? cards : nil
+      end.compact
     end
 
     def suited_cards
-      @cards.map{|card| card.suit}.uniq.map do |suit|
+      @suited_cards ||= @cards.map{|card| card.suit}.uniq.map do |suit|
         @cards.select{|card| card.suit == suit}
       end
     end
 
     def straight_cards
-      (1..10).map do |low| # straight can start at a low ace up to a 10
+      @straight_cards ||= (1..10).map do |low| # straight can start at a low ace up to a 10
         high = low + 4
         cards = (low..high).map do |value|
           @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
