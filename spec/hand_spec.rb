@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_flush = Hand.new(
+        Card.new('Clubs', 14),
+        Card.new('Clubs', 13),
+        Card.new('Clubs', 12),
+        Card.new('Clubs', 11),
+        Card.new('Clubs', 9)
+      )
       @highest_straight = Hand.new(
         Card.new('Clubs', 14),
         Card.new('Hearts', 13),
@@ -321,6 +328,59 @@ describe Hand do
         Card.new('Clubs', 11),
         Card.new('Diamonds', 9)
       )
+    end
+
+    describe 'flush' do
+      before do
+        @lowest_flush = Hand.new(
+          Card.new('Clubs', 2),
+          Card.new('Clubs', 3),
+          Card.new('Clubs', 4),
+          Card.new('Clubs', 5),
+          Card.new('Clubs', 7)
+        )
+      end
+
+      it 'should beat a smaller flush' do
+        @highest_flush.should > @flush
+        @flush.should > @lowest_flush
+      end
+
+      it 'should beat any straight' do
+        @lowest_flush.should > @highest_straight
+      end
+
+      it 'should beat any set' do
+        @lowest_flush.should > @highest_set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_flush.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_flush.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_flush.should > @highest_high_card
+      end
+
+      it 'should compare the highest cards in the flush' do
+        Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Spades', 13),
+          Card.new('Spades', 4),
+          Card.new('Spades', 3),
+          Card.new('Spades', 2)
+        ).should > Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Spades', 12),
+          Card.new('Spades', 11),
+          Card.new('Spades', 10),
+          Card.new('Spades', 9)
+        )
+      end
     end
 
     describe 'straight' do

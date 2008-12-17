@@ -59,7 +59,10 @@ class Hand
 
   protected
     def value
-      if straight?
+      if flush?
+        14 ** 9 +
+        weighted_sum(suited_cards.find{|cards| cards.length >= 5}, 5)
+      elsif straight?
         14 ** 8 * straight_cards.last.last.value
       elsif set?
         14 ** 7 * matched_cards[0][0].value +
