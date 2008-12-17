@@ -1,13 +1,12 @@
 class Hand
   def initialize(*hands_or_cards)
-    @cards = []
-    hands_or_cards.each do |hand_or_card|
+    @cards = hands_or_cards.map do |hand_or_card|
       if hand_or_card.is_a?(Hand)
-        @cards += hand_or_card.cards
+        hand_or_card.cards
       else
-        @cards.push hand_or_card
+        hand_or_card
       end
-    end
+    end.flatten
   end
 
   def straight_flush?
@@ -33,12 +32,9 @@ class Hand
   end
 
   def straight?
-    values = @cards.map{|card| card.value}.uniq.sort
-    values.unshift 1 if values.include?(14) # ace can be low
-    0.upto(values.length - 5) do |i|
-      return true if values[i] + 4 == values[i + 4]
+    straight_cards.any? do |cards|
+      cards.length >= 5
     end
-    false
   end
 
   def set?
@@ -69,5 +65,14 @@ class Hand
       @cards.map{|card| card.suit}.uniq.map do |suit|
         @cards.select{|card| card.suit == suit}
       end
+    end
+
+    def straight_cards
+      (1..10).map do |low| # straight can start at a low ace up to a 10
+        high = low + 4
+        cards = (low..high).map do |value|
+          @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
+        end.compact
+      end.select{|cards| cards.length == 5}
     end
 end
