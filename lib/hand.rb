@@ -59,7 +59,11 @@ class Hand
 
   protected
     def value
-      if flush?
+      if full_house?
+        set = matched_cards.find{|cards| cards.length == 3}
+        14 ** 10 * set.first.value +
+        14 ** 9 * (matched_cards - [set])[0][0].value
+      elsif flush?
         14 ** 9 +
         weighted_sum(suited_cards.find{|cards| cards.length >= 5}, 5)
       elsif straight?

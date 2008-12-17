@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_full_house = Hand.new(
+        Card.new('Clubs', 14),
+        Card.new('Hearts', 14),
+        Card.new('Spades', 14),
+        Card.new('Diamonds', 13),
+        Card.new('Hearts', 13)
+      )
       @highest_flush = Hand.new(
         Card.new('Clubs', 14),
         Card.new('Clubs', 13),
@@ -328,6 +335,79 @@ describe Hand do
         Card.new('Clubs', 11),
         Card.new('Diamonds', 9)
       )
+    end
+
+    describe 'full house' do
+      before do
+        @lowest_full_house = Hand.new(
+          Card.new('Clubs', 2),
+          Card.new('Hearts', 2),
+          Card.new('Spades', 2),
+          Card.new('Diamonds', 3),
+          Card.new('Hearts', 3)
+        )
+      end
+
+      it 'should beat a smaller full house' do
+        @highest_full_house.should > @full_house
+        @full_house.should > @lowest_full_house
+      end
+
+      it 'should beat any flush' do
+        @lowest_full_house.should > @highest_flush
+      end
+
+      it 'should beat any straight' do
+        @lowest_full_house.should > @highest_straight
+      end
+
+      it 'should beat any set' do
+        @lowest_full_house.should > @highest_set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_full_house.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_full_house.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_full_house.should > @highest_high_card
+      end
+
+      it 'should consider the set first' do
+        Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 2),
+          Card.new('Hearts', 2)
+        ).should > Hand.new(
+          Card.new('Clubs', 13),
+          Card.new('Hearts', 13),
+          Card.new('Spades', 13),
+          Card.new('Diamonds', 12),
+          Card.new('Hearts', 12)
+        )
+      end
+
+      it 'should consider the pair if the set is the same' do
+        Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 12),
+          Card.new('Hearts', 12)
+        ).should > Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 14),
+          Card.new('Spades', 14),
+          Card.new('Diamonds', 11),
+          Card.new('Hearts', 11)
+        )
+      end
     end
 
     describe 'flush' do
