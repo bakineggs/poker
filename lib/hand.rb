@@ -59,7 +59,10 @@ class Hand
 
   protected
     def value
-      if two_pair?
+      if set?
+        14 ** 7 * matched_cards[0][0].value +
+        weighted_sum(@cards - matched_cards.flatten, 2)
+      elsif two_pair?
         14 ** 6 * matched_cards[0][0].value +
         14 ** 5 * matched_cards[1][0].value +
         weighted_sum(@cards - matched_cards.flatten, 1)

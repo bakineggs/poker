@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_set = Hand.new(
+        Card.new('Clubs', 14),
+        Card.new('Hearts', 14),
+        Card.new('Spades', 14),
+        Card.new('Diamonds', 13),
+        Card.new('Hearts', 12)
+      )
       @highest_two_pair = Hand.new(
         Card.new('Clubs', 14),
         Card.new('Hearts', 14),
@@ -307,6 +314,66 @@ describe Hand do
         Card.new('Clubs', 11),
         Card.new('Diamonds', 9)
       )
+    end
+
+    describe 'set' do
+      before do
+        @lowest_set = Hand.new(
+          Card.new('Spades', 2),
+          Card.new('Clubs', 2),
+          Card.new('Hearts', 2),
+          Card.new('Diamonds', 3),
+          Card.new('Clubs', 4)
+        )
+      end
+
+      it 'should beat a smaller set' do
+        @highest_set.should > @set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_set.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_set.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_set.should > @highest_high_card
+      end
+
+      it 'should beat smaller sets' do
+        Hand.new(
+          Card.new('Spades', 7),
+          Card.new('Clubs', 7),
+          Card.new('Diamonds', 7),
+          Card.new('Hearts', 2),
+          Card.new('Clubs', 3)
+        ).should > Hand.new(
+          Card.new('Spades', 6),
+          Card.new('Clubs', 6),
+          Card.new('Diamonds', 6),
+          Card.new('Hearts', 13),
+          Card.new('Clubs', 14)
+        )
+      end
+
+      it 'should beat smaller kickers' do
+        Hand.new(
+          Card.new('Spades', 7),
+          Card.new('Clubs', 7),
+          Card.new('Diamonds', 7),
+          Card.new('Hearts', 14),
+          Card.new('Clubs', 11)
+        ).should > Hand.new(
+          Card.new('Spades', 7),
+          Card.new('Clubs', 7),
+          Card.new('Diamonds', 7),
+          Card.new('Hearts', 14),
+          Card.new('Clubs', 10)
+        )
+      end
     end
 
     describe 'two pair' do
