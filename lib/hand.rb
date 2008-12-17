@@ -59,14 +59,22 @@ class Hand
 
   protected
     def value
-      sum = 0
-      @cards.first(5).each_with_index do |card, i|
-        sum += 14 ** (4 - i) * card.value
+      if pair?
+        14 ** 5 * matched_cards.first.first.value + weighted_sum(@cards - matched_cards.flatten, 3)
+      else
+        weighted_sum(@cards, 5)
       end
-      sum
     end
 
   private
+    def weighted_sum(cards, count)
+      weighted_sum = 0
+      cards.first(count).each_with_index do |card, i|
+        weighted_sum += 14 ** (4 - i) * card.value
+      end
+      weighted_sum
+    end
+
     def matched_cards
       matched_cards = []
       @cards.map{|card| card.value}.uniq.each do |value|

@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_pair = Hand.new(
+        Card.new('Hearts', 14),
+        Card.new('Diamonds', 14),
+        Card.new('Spades', 13),
+        Card.new('Diamonds', 12),
+        Card.new('Clubs', 11)
+      )
       @highest_high_card = Hand.new(
         Card.new('Hearts', 14),
         Card.new('Spades', 13),
@@ -293,6 +300,38 @@ describe Hand do
         Card.new('Clubs', 11),
         Card.new('Diamonds', 9)
       )
+    end
+
+    describe 'pair' do
+      it 'should beat a smaller pair' do
+        @highest_pair.should > @pair
+      end
+
+      it 'should beat any high card' do
+        Hand.new(
+          Card.new('Spades', 2),
+          Card.new('Clubs', 2),
+          Card.new('Hearts', 3),
+          Card.new('Diamonds', 4),
+          Card.new('Diamonds', 5)
+        ).should > @highest_high_card
+      end
+
+      it 'should beat smaller kickers' do
+        Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Clubs', 14),
+          Card.new('Diamonds', 13),
+          Card.new('Hearts', 12),
+          Card.new('Clubs', 2)
+        ).should > Hand.new(
+          Card.new('Spades', 14),
+          Card.new('Clubs', 14),
+          Card.new('Diamonds', 13),
+          Card.new('Hearts', 11),
+          Card.new('Clubs', 10)
+        )
+      end
     end
 
     describe 'high card' do
