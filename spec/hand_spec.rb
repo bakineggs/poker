@@ -286,6 +286,13 @@ describe Hand do
 
   describe 'rankings' do
     before do
+      @highest_straight = Hand.new(
+        Card.new('Clubs', 14),
+        Card.new('Hearts', 13),
+        Card.new('Spades', 12),
+        Card.new('Diamonds', 11),
+        Card.new('Hearts', 10)
+      )
       @highest_set = Hand.new(
         Card.new('Clubs', 14),
         Card.new('Hearts', 14),
@@ -316,6 +323,39 @@ describe Hand do
       )
     end
 
+    describe 'straight' do
+      before do
+        @lowest_straight = Hand.new(
+          Card.new('Clubs', 14),
+          Card.new('Hearts', 2),
+          Card.new('Spades', 3),
+          Card.new('Diamonds', 4),
+          Card.new('Hearts', 5)
+        )
+      end
+
+      it 'should beat a smaller straight' do
+        @highest_straight.should > @straight
+        @straight.should > @lowest_straight
+      end
+
+      it 'should beat any set' do
+        @lowest_straight.should > @highest_set
+      end
+
+      it 'should beat any two pair' do
+        @lowest_straight.should > @highest_two_pair
+      end
+
+      it 'should beat any pair' do
+        @lowest_straight.should > @highest_pair
+      end
+
+      it 'should beat any high card' do
+        @lowest_straight.should > @highest_high_card
+      end
+    end
+
     describe 'set' do
       before do
         @lowest_set = Hand.new(
@@ -329,6 +369,7 @@ describe Hand do
 
       it 'should beat a smaller set' do
         @highest_set.should > @set
+        @set.should > @lowest_set
       end
 
       it 'should beat any two pair' do
@@ -389,6 +430,7 @@ describe Hand do
 
       it 'should beat a smaller two pair' do
         @highest_two_pair.should > @two_pair
+        @two_pair.should > @lowest_two_pair
       end
 
       it 'should beat any pair' do
@@ -450,7 +492,7 @@ describe Hand do
 
     describe 'pair' do
       before do
-        @smallest_pair = Hand.new(
+        @lowest_pair = Hand.new(
           Card.new('Spades', 2),
           Card.new('Clubs', 2),
           Card.new('Hearts', 3),
@@ -461,10 +503,11 @@ describe Hand do
 
       it 'should beat a smaller pair' do
         @highest_pair.should > @pair
+        @pair.should > @lowest_pair
       end
 
       it 'should beat any high card' do
-        @smallest_pair.should > @highest_high_card
+        @lowest_pair.should > @highest_high_card
       end
 
       it 'should beat smaller kickers' do
