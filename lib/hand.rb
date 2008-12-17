@@ -59,8 +59,13 @@ class Hand
 
   protected
     def value
-      if pair?
-        14 ** 5 * matched_cards.first.first.value + weighted_sum(@cards - matched_cards.flatten, 3)
+      if two_pair?
+        14 ** 6 * matched_cards[0][0].value +
+        14 ** 5 * matched_cards[1][0].value +
+        weighted_sum(@cards - matched_cards.flatten, 1)
+      elsif pair?
+        14 ** 5 * matched_cards[0][0].value +
+        weighted_sum(@cards - matched_cards.flatten, 3)
       else
         weighted_sum(@cards, 5)
       end
