@@ -54,10 +54,11 @@ class Hand
   end
 
   def <=> other_hand
-    if (by_rank = rank <=> other_hand.rank) == 0
-      value <=> other_hand.value
-    else
-      by_rank
+    return rank <=> other_hand.rank unless rank == other_hand.rank
+    return 0 if tie_breaker == other_hand.tie_breaker
+    tie_breaker.each_with_index do |card, i|
+      compared = card.value <=> other_hand.tie_breaker[i].value
+      return compared unless compared == 0
     end
   end
 
@@ -75,33 +76,28 @@ class Hand
       end
     end
 
-    def value
-      @value ||= if straight_flush?
-        Hand.new(*suited_cards.find{|cards| cards.length >= 5}).unsuited!.value
+    def tie_breaker
+      @tie_breaker ||= if flush?
+        Hand.new(*suited_cards.find{|cards| cards.length >= 5}).unsuited!.tie_breaker
       elsif quads?
         quads = matched_cards.find{|cards| cards.length == 4}
-        14 * quads.first.value +
-        (@cards - quads).first.value
+        quads + [(@cards - quads).first]
       elsif full_house?
         set = matched_cards.find{|cards| cards.length == 3}
-        14 * set.first.value +
-        (matched_cards - [set])[0][0].value
-      elsif flush?
-        weighted_sum(suited_cards.find{|cards| cards.length >= 5}, 5)
+        set + (matched_cards - [set]).first.first(2)
       elsif straight?
-        straight_cards.last.last.value
+        [straight_cards.last.last]
       elsif set?
-        14 ** 5 * matched_cards[0][0].value +
-        weighted_sum(@cards - matched_cards.flatten, 2)
+        set = matched_cards.first
+        set + (@cards - set).first(2)
       elsif two_pair?
-        14 ** 6 * matched_cards[0][0].value +
-        14 ** 5 * matched_cards[1][0].value +
-        weighted_sum(@cards - matched_cards.flatten, 1)
+        two_pair = matched_cards.first(2).flatten
+        two_pair + [(@cards - two_pair).first]
       elsif pair?
-        14 ** 5 * matched_cards[0][0].value +
-        weighted_sum(@cards - matched_cards.flatten, 3)
+        pair = matched_cards.first
+        pair + (@cards - pair).first(3)
       else
-        weighted_sum(@cards, 5)
+        @cards.first(5)
       end
     end
 
@@ -111,14 +107,6 @@ class Hand
     end
 
   private
-    def weighted_sum(cards, count)
-      weighted_sum = 0
-      cards.first(count).each_with_index do |card, i|
-        weighted_sum += 14 ** (4 - i) * card.value
-      end
-      weighted_sum
-    end
-
     def matched_cards
       @matched_cards ||= @cards.map{|card| card.value}.uniq.map do |value|
         cards = @cards.select{|card| card.value == value}
