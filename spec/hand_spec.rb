@@ -3,67 +3,67 @@ require File.dirname(__FILE__) + '/helper'
 describe Hand do
   before do
     @straight_flush = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Spades', 5),
-      Card.new('Spades', 9),
-      Card.new('Spades', 7),
-      Card.new('Spades', 8)
+      Card.new('Spades', '6'),
+      Card.new('Spades', '5'),
+      Card.new('Spades', '9'),
+      Card.new('Spades', '7'),
+      Card.new('Spades', '8')
     )
     @quads = Hand.new(
-      Card.new('Hearts', 6),
-      Card.new('Spades', 6),
-      Card.new('Clubs', 6),
-      Card.new('Spades', 7),
-      Card.new('Diamonds', 6)
+      Card.new('Hearts', '6'),
+      Card.new('Spades', '6'),
+      Card.new('Clubs', '6'),
+      Card.new('Spades', '7'),
+      Card.new('Diamonds', '6')
     )
     @full_house = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Hearts', 6),
-      Card.new('Diamonds', 6),
-      Card.new('Spades', 7),
-      Card.new('Clubs', 7)
+      Card.new('Spades', '6'),
+      Card.new('Hearts', '6'),
+      Card.new('Diamonds', '6'),
+      Card.new('Spades', '7'),
+      Card.new('Clubs', '7')
     )
     @flush = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Spades', 12),
-      Card.new('Spades', 3),
-      Card.new('Spades', 7),
-      Card.new('Spades', 8)
+      Card.new('Spades', '6'),
+      Card.new('Spades', 'Queen'),
+      Card.new('Spades', '3'),
+      Card.new('Spades', '7'),
+      Card.new('Spades', '8')
     )
     @straight = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Clubs', 5),
-      Card.new('Spades', 9),
-      Card.new('Diamonds', 7),
-      Card.new('Hearts', 8)
+      Card.new('Spades', '6'),
+      Card.new('Clubs', '5'),
+      Card.new('Spades', '9'),
+      Card.new('Diamonds', '7'),
+      Card.new('Hearts', '8')
     )
     @set = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Hearts', 6),
-      Card.new('Spades', 9),
-      Card.new('Clubs', 6),
-      Card.new('Diamonds', 8)
+      Card.new('Spades', '6'),
+      Card.new('Hearts', '6'),
+      Card.new('Spades', '9'),
+      Card.new('Clubs', '6'),
+      Card.new('Diamonds', '8')
     )
     @two_pair = Hand.new(
-      Card.new('Spades', 6),
-      Card.new('Hearts', 5),
-      Card.new('Clubs', 6),
-      Card.new('Diamonds', 5),
-      Card.new('Spades', 8)
+      Card.new('Spades', '6'),
+      Card.new('Hearts', '5'),
+      Card.new('Clubs', '6'),
+      Card.new('Diamonds', '5'),
+      Card.new('Spades', '8')
     )
     @pair = Hand.new(
-      Card.new('Hearts', 6),
-      Card.new('Spades', 5),
-      Card.new('Clubs', 8),
-      Card.new('Diamonds', 7),
-      Card.new('Spades', 8)
+      Card.new('Hearts', '6'),
+      Card.new('Spades', '5'),
+      Card.new('Clubs', '8'),
+      Card.new('Diamonds', '7'),
+      Card.new('Spades', '8')
     )
     @high_card = Hand.new(
-      Card.new('Hearts', 6),
-      Card.new('Spades', 12),
-      Card.new('Diamonds', 4),
-      Card.new('Clubs', 7),
-      Card.new('Diamonds', 11)
+      Card.new('Hearts', '6'),
+      Card.new('Spades', 'Queen'),
+      Card.new('Diamonds', '4'),
+      Card.new('Clubs', '7'),
+      Card.new('Diamonds', 'Jack')
     )
   end
 
@@ -91,11 +91,11 @@ describe Hand do
     describe 'wheel' do
       it 'should be a straight flush' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Spades', 2),
-          Card.new('Spades', 3),
-          Card.new('Spades', 4),
-          Card.new('Spades', 5)
+          Card.new('Spades', 'Ace'),
+          Card.new('Spades', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Spades', '4'),
+          Card.new('Spades', '5')
         ).should be_straight_flush
       end
     end
@@ -182,11 +182,11 @@ describe Hand do
     describe 'wheel' do
       it 'should be a straight' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 2),
-          Card.new('Spades', 3),
-          Card.new('Hearts', 4),
-          Card.new('Diamonds', 5)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Hearts', '4'),
+          Card.new('Diamonds', '5')
         ).should be_straight
       end
     end
@@ -262,12 +262,12 @@ describe Hand do
   describe 'straight and flush' do
     before do
       @straight_and_flush = Hand.new(
-        Card.new('Spades', 14),
-        Card.new('Spades', 10),
-        Card.new('Spades', 9),
-        Card.new('Clubs', 8),
-        Card.new('Spades', 7),
-        Card.new('Spades', 6)
+        Card.new('Spades', 'Ace'),
+        Card.new('Spades', '10'),
+        Card.new('Spades', '9'),
+        Card.new('Clubs', '8'),
+        Card.new('Spades', '7'),
+        Card.new('Spades', '6')
       )
     end
 
@@ -287,78 +287,78 @@ describe Hand do
   describe 'rankings' do
     before do
       @highest_quads = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Hearts', 14),
-        Card.new('Spades', 14),
-        Card.new('Diamonds', 14),
-        Card.new('Hearts', 13)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Hearts', 'Ace'),
+        Card.new('Spades', 'Ace'),
+        Card.new('Diamonds', 'Ace'),
+        Card.new('Hearts', 'King')
       )
       @highest_full_house = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Hearts', 14),
-        Card.new('Spades', 14),
-        Card.new('Diamonds', 13),
-        Card.new('Hearts', 13)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Hearts', 'Ace'),
+        Card.new('Spades', 'Ace'),
+        Card.new('Diamonds', 'King'),
+        Card.new('Hearts', 'King')
       )
       @highest_flush = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Clubs', 13),
-        Card.new('Clubs', 12),
-        Card.new('Clubs', 11),
-        Card.new('Clubs', 9)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Clubs', 'King'),
+        Card.new('Clubs', 'Queen'),
+        Card.new('Clubs', 'Jack'),
+        Card.new('Clubs', '9')
       )
       @highest_straight = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Hearts', 13),
-        Card.new('Spades', 12),
-        Card.new('Diamonds', 11),
-        Card.new('Hearts', 10)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Hearts', 'King'),
+        Card.new('Spades', 'Queen'),
+        Card.new('Diamonds', 'Jack'),
+        Card.new('Hearts', '10')
       )
       @highest_set = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Hearts', 14),
-        Card.new('Spades', 14),
-        Card.new('Diamonds', 13),
-        Card.new('Hearts', 12)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Hearts', 'Ace'),
+        Card.new('Spades', 'Ace'),
+        Card.new('Diamonds', 'King'),
+        Card.new('Hearts', 'Queen')
       )
       @highest_two_pair = Hand.new(
-        Card.new('Clubs', 14),
-        Card.new('Hearts', 14),
-        Card.new('Spades', 13),
-        Card.new('Diamonds', 13),
-        Card.new('Hearts', 12)
+        Card.new('Clubs', 'Ace'),
+        Card.new('Hearts', 'Ace'),
+        Card.new('Spades', 'King'),
+        Card.new('Diamonds', 'King'),
+        Card.new('Hearts', 'Queen')
       )
       @highest_pair = Hand.new(
-        Card.new('Hearts', 14),
-        Card.new('Diamonds', 14),
-        Card.new('Spades', 13),
-        Card.new('Diamonds', 12),
-        Card.new('Clubs', 11)
+        Card.new('Hearts', 'Ace'),
+        Card.new('Diamonds', 'Ace'),
+        Card.new('Spades', 'King'),
+        Card.new('Diamonds', 'Queen'),
+        Card.new('Clubs', 'Jack')
       )
       @highest_high_card = Hand.new(
-        Card.new('Hearts', 14),
-        Card.new('Spades', 13),
-        Card.new('Diamonds', 12),
-        Card.new('Clubs', 11),
-        Card.new('Diamonds', 9)
+        Card.new('Hearts', 'Ace'),
+        Card.new('Spades', 'King'),
+        Card.new('Diamonds', 'Queen'),
+        Card.new('Clubs', 'Jack'),
+        Card.new('Diamonds', '9')
       )
     end
 
     describe 'straight flush' do
       before do
         @highest_straight_flush = Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Clubs', 13),
-          Card.new('Clubs', 12),
-          Card.new('Clubs', 11),
-          Card.new('Clubs', 10)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Clubs', 'King'),
+          Card.new('Clubs', 'Queen'),
+          Card.new('Clubs', 'Jack'),
+          Card.new('Clubs', '10')
         )
         @lowest_straight_flush = Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Clubs', 2),
-          Card.new('Clubs', 3),
-          Card.new('Clubs', 4),
-          Card.new('Clubs', 5)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Clubs', '2'),
+          Card.new('Clubs', '3'),
+          Card.new('Clubs', '4'),
+          Card.new('Clubs', '5')
         )
       end
 
@@ -403,11 +403,11 @@ describe Hand do
     describe 'quads' do
       before do
         @lowest_quads = Hand.new(
-          Card.new('Clubs', 2),
-          Card.new('Hearts', 2),
-          Card.new('Spades', 2),
-          Card.new('Diamonds', 2),
-          Card.new('Hearts', 3)
+          Card.new('Clubs', '2'),
+          Card.new('Hearts', '2'),
+          Card.new('Spades', '2'),
+          Card.new('Diamonds', '2'),
+          Card.new('Hearts', '3')
         )
       end
 
@@ -446,33 +446,33 @@ describe Hand do
 
       it 'should consider the quads first' do
         Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 14),
-          Card.new('Hearts', 2)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', 'Ace'),
+          Card.new('Hearts', '2')
         ).should > Hand.new(
-          Card.new('Clubs', 13),
-          Card.new('Hearts', 13),
-          Card.new('Spades', 13),
-          Card.new('Diamonds', 13),
-          Card.new('Hearts', 12)
+          Card.new('Clubs', 'King'),
+          Card.new('Hearts', 'King'),
+          Card.new('Spades', 'King'),
+          Card.new('Diamonds', 'King'),
+          Card.new('Hearts', 'Queen')
         )
       end
 
       it 'should consider the kicker if the quads are the same' do
         Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 14),
-          Card.new('Hearts', 12)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', 'Ace'),
+          Card.new('Hearts', 'Queen')
         ).should > Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 14),
-          Card.new('Hearts', 11)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', 'Ace'),
+          Card.new('Hearts', 'Jack')
         )
       end
     end
@@ -480,11 +480,11 @@ describe Hand do
     describe 'full house' do
       before do
         @lowest_full_house = Hand.new(
-          Card.new('Clubs', 2),
-          Card.new('Hearts', 2),
-          Card.new('Spades', 2),
-          Card.new('Diamonds', 3),
-          Card.new('Hearts', 3)
+          Card.new('Clubs', '2'),
+          Card.new('Hearts', '2'),
+          Card.new('Spades', '2'),
+          Card.new('Diamonds', '3'),
+          Card.new('Hearts', '3')
         )
       end
 
@@ -519,33 +519,33 @@ describe Hand do
 
       it 'should consider the set first' do
         Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 2),
-          Card.new('Hearts', 2)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', '2'),
+          Card.new('Hearts', '2')
         ).should > Hand.new(
-          Card.new('Clubs', 13),
-          Card.new('Hearts', 13),
-          Card.new('Spades', 13),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12)
+          Card.new('Clubs', 'King'),
+          Card.new('Hearts', 'King'),
+          Card.new('Spades', 'King'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen')
         )
       end
 
       it 'should consider the pair if the set is the same' do
         Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen')
         ).should > Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 14),
-          Card.new('Spades', 14),
-          Card.new('Diamonds', 11),
-          Card.new('Hearts', 11)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Spades', 'Ace'),
+          Card.new('Diamonds', 'Jack'),
+          Card.new('Hearts', 'Jack')
         )
       end
     end
@@ -553,11 +553,11 @@ describe Hand do
     describe 'flush' do
       before do
         @lowest_flush = Hand.new(
-          Card.new('Clubs', 2),
-          Card.new('Clubs', 3),
-          Card.new('Clubs', 4),
-          Card.new('Clubs', 5),
-          Card.new('Clubs', 7)
+          Card.new('Clubs', '2'),
+          Card.new('Clubs', '3'),
+          Card.new('Clubs', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Clubs', '7')
         )
       end
 
@@ -588,17 +588,17 @@ describe Hand do
 
       it 'should compare the highest cards in the flush' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Spades', 13),
-          Card.new('Spades', 4),
-          Card.new('Spades', 3),
-          Card.new('Spades', 2)
+          Card.new('Spades', 'Ace'),
+          Card.new('Spades', 'King'),
+          Card.new('Spades', '4'),
+          Card.new('Spades', '3'),
+          Card.new('Spades', '2')
         ).should > Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Spades', 12),
-          Card.new('Spades', 11),
-          Card.new('Spades', 10),
-          Card.new('Spades', 9)
+          Card.new('Spades', 'Ace'),
+          Card.new('Spades', 'Queen'),
+          Card.new('Spades', 'Jack'),
+          Card.new('Spades', '10'),
+          Card.new('Spades', '9')
         )
       end
     end
@@ -606,11 +606,11 @@ describe Hand do
     describe 'straight' do
       before do
         @lowest_straight = Hand.new(
-          Card.new('Clubs', 14),
-          Card.new('Hearts', 2),
-          Card.new('Spades', 3),
-          Card.new('Diamonds', 4),
-          Card.new('Hearts', 5)
+          Card.new('Clubs', 'Ace'),
+          Card.new('Hearts', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Diamonds', '4'),
+          Card.new('Hearts', '5')
         )
       end
 
@@ -639,11 +639,11 @@ describe Hand do
     describe 'set' do
       before do
         @lowest_set = Hand.new(
-          Card.new('Spades', 2),
-          Card.new('Clubs', 2),
-          Card.new('Hearts', 2),
-          Card.new('Diamonds', 3),
-          Card.new('Clubs', 4)
+          Card.new('Spades', '2'),
+          Card.new('Clubs', '2'),
+          Card.new('Hearts', '2'),
+          Card.new('Diamonds', '3'),
+          Card.new('Clubs', '4')
         )
       end
 
@@ -666,33 +666,33 @@ describe Hand do
 
       it 'should beat smaller sets' do
         Hand.new(
-          Card.new('Spades', 7),
-          Card.new('Clubs', 7),
-          Card.new('Diamonds', 7),
-          Card.new('Hearts', 2),
-          Card.new('Clubs', 3)
+          Card.new('Spades', '7'),
+          Card.new('Clubs', '7'),
+          Card.new('Diamonds', '7'),
+          Card.new('Hearts', '2'),
+          Card.new('Clubs', '3')
         ).should > Hand.new(
-          Card.new('Spades', 6),
-          Card.new('Clubs', 6),
-          Card.new('Diamonds', 6),
-          Card.new('Hearts', 13),
-          Card.new('Clubs', 14)
+          Card.new('Spades', '6'),
+          Card.new('Clubs', '6'),
+          Card.new('Diamonds', '6'),
+          Card.new('Hearts', 'King'),
+          Card.new('Clubs', 'Ace')
         )
       end
 
       it 'should beat smaller kickers' do
         Hand.new(
-          Card.new('Spades', 7),
-          Card.new('Clubs', 7),
-          Card.new('Diamonds', 7),
-          Card.new('Hearts', 14),
-          Card.new('Clubs', 11)
+          Card.new('Spades', '7'),
+          Card.new('Clubs', '7'),
+          Card.new('Diamonds', '7'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Clubs', 'Jack')
         ).should > Hand.new(
-          Card.new('Spades', 7),
-          Card.new('Clubs', 7),
-          Card.new('Diamonds', 7),
-          Card.new('Hearts', 14),
-          Card.new('Clubs', 10)
+          Card.new('Spades', '7'),
+          Card.new('Clubs', '7'),
+          Card.new('Diamonds', '7'),
+          Card.new('Hearts', 'Ace'),
+          Card.new('Clubs', '10')
         )
       end
     end
@@ -700,11 +700,11 @@ describe Hand do
     describe 'two pair' do
       before do
         @lowest_two_pair = Hand.new(
-          Card.new('Spades', 2),
-          Card.new('Clubs', 2),
-          Card.new('Hearts', 3),
-          Card.new('Diamonds', 3),
-          Card.new('Clubs', 4)
+          Card.new('Spades', '2'),
+          Card.new('Clubs', '2'),
+          Card.new('Hearts', '3'),
+          Card.new('Diamonds', '3'),
+          Card.new('Clubs', '4')
         )
       end
 
@@ -723,49 +723,49 @@ describe Hand do
 
       it 'should beat smaller first pairs' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 14),
-          Card.new('Diamonds', 2),
-          Card.new('Hearts', 2),
-          Card.new('Clubs', 3)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'Ace'),
+          Card.new('Diamonds', '2'),
+          Card.new('Hearts', '2'),
+          Card.new('Clubs', '3')
         ).should > Hand.new(
-          Card.new('Spades', 13),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12),
-          Card.new('Clubs', 14)
+          Card.new('Spades', 'King'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen'),
+          Card.new('Clubs', 'Ace')
         )
       end
 
       it 'should beat smaller second pairs' do
         Hand.new(
-          Card.new('Spades', 13),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12),
-          Card.new('Clubs', 2)
+          Card.new('Spades', 'King'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen'),
+          Card.new('Clubs', '2')
         ).should > Hand.new(
-          Card.new('Spades', 13),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 11),
-          Card.new('Hearts', 11),
-          Card.new('Clubs', 14)
+          Card.new('Spades', 'King'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', 'Jack'),
+          Card.new('Hearts', 'Jack'),
+          Card.new('Clubs', 'Ace')
         )
       end
 
       it 'should beat smaller kickers' do
         Hand.new(
-          Card.new('Spades', 13),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12),
-          Card.new('Clubs', 14)
+          Card.new('Spades', 'King'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen'),
+          Card.new('Clubs', 'Ace')
         ).should > Hand.new(
-          Card.new('Spades', 13),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 12),
-          Card.new('Hearts', 12),
-          Card.new('Clubs', 11)
+          Card.new('Spades', 'King'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', 'Queen'),
+          Card.new('Hearts', 'Queen'),
+          Card.new('Clubs', 'Jack')
         )
       end
     end
@@ -773,11 +773,11 @@ describe Hand do
     describe 'pair' do
       before do
         @lowest_pair = Hand.new(
-          Card.new('Spades', 2),
-          Card.new('Clubs', 2),
-          Card.new('Hearts', 3),
-          Card.new('Diamonds', 4),
-          Card.new('Diamonds', 5)
+          Card.new('Spades', '2'),
+          Card.new('Clubs', '2'),
+          Card.new('Hearts', '3'),
+          Card.new('Diamonds', '4'),
+          Card.new('Diamonds', '5')
         )
       end
 
@@ -792,17 +792,17 @@ describe Hand do
 
       it 'should beat smaller kickers' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 14),
-          Card.new('Diamonds', 13),
-          Card.new('Hearts', 12),
-          Card.new('Clubs', 2)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'Ace'),
+          Card.new('Diamonds', 'King'),
+          Card.new('Hearts', 'Queen'),
+          Card.new('Clubs', '2')
         ).should > Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 14),
-          Card.new('Diamonds', 13),
-          Card.new('Hearts', 11),
-          Card.new('Clubs', 10)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'Ace'),
+          Card.new('Diamonds', 'King'),
+          Card.new('Hearts', 'Jack'),
+          Card.new('Clubs', '10')
         )
       end
     end
@@ -814,17 +814,17 @@ describe Hand do
 
       it 'should beat a smaller subsequent card' do
         Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 13),
-          Card.new('Diamonds', 4),
-          Card.new('Hearts', 3),
-          Card.new('Clubs', 2)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'King'),
+          Card.new('Diamonds', '4'),
+          Card.new('Hearts', '3'),
+          Card.new('Clubs', '2')
         ).should > Hand.new(
-          Card.new('Spades', 14),
-          Card.new('Clubs', 12),
-          Card.new('Diamonds', 11),
-          Card.new('Hearts', 10),
-          Card.new('Clubs', 9)
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'Queen'),
+          Card.new('Diamonds', 'Jack'),
+          Card.new('Hearts', '10'),
+          Card.new('Clubs', '9')
         )
       end
     end

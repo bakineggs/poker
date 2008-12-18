@@ -1,12 +1,11 @@
 class Deck
   def initialize
-    @cards = []
-    @card_index = 0
-    Card::SUITS.each do |suit|
-      (2..14).each do |value|
-        @cards.push Card.new(suit, value)
+    @cards = Card::SUITS.map do |suit|
+      Card::FACES.map do |value|
+        Card.new(suit, value)
       end
-    end
+    end.flatten
+    @card_index = 0
   end
 
   def shuffle
