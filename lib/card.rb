@@ -25,6 +25,7 @@ class Card
   def initialize(suit, face_or_value)
     self.suit = suit
     self.value = VALUES[face_or_value] || face_or_value
+    raise ArgumentError unless SUITS.include?(suit) && VALUES.has_value?(value)
   end
 
   def face
