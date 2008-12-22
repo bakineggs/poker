@@ -1,5 +1,42 @@
 require File.dirname(__FILE__) + '/helper'
 
+describe Hand, '#new' do
+  before do
+    @cards = [
+      Card.new('Hearts', '6'),
+      Card.new('Spades', 'Queen'),
+      Card.new('Diamonds', '4'),
+      Card.new('Clubs', '7'),
+      Card.new('Diamonds', 'Jack'),
+      Card.new('Spades', '8')
+    ]
+  end
+
+  it 'should contain the given cards' do
+    Hand.new(*@cards).cards.sort.should == @cards.sort
+  end
+
+  it 'should contain the cards in any given hands' do
+    Hand.new(Hand.new(*@cards[0..2]), Hand.new(*@cards[3..5])).cards.sort.should == @cards.sort
+  end
+
+  it 'should accept a combination of hands and cards' do
+    Hand.new(Hand.new(*@cards[0..2]), *@cards[3..5]).cards.sort.should == @cards.sort
+  end
+
+  it 'should ignore the same card if given twice' do
+    Hand.new(@cards[3], *@cards).cards.sort.should == @cards.sort
+  end
+
+  it 'should ignore the same card if given in two hands' do
+    Hand.new(Hand.new(*@cards[0..3]), Hand.new(*@cards[2..5])).cards.sort.should == @cards.sort
+  end
+
+  it 'should ignore the same card if given in a combo of cards and hands' do
+    Hand.new(Hand.new(*@cards[0..3]), *@cards[2..5]).cards.sort.should == @cards.sort
+  end
+end
+
 describe Hand do
   before do
     @straight_flush = Hand.new(

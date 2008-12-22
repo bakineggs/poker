@@ -8,7 +8,7 @@ class Hand
       else
         hand_or_card
       end
-    end.flatten.sort.reverse
+    end.flatten.uniq.sort.reverse
   end
 
   def straight_flush?
@@ -51,6 +51,10 @@ class Hand
 
   def pair?
     @pair ||= matched_cards.length >= 1
+  end
+
+  def cards
+    @cards
   end
 
   def <=> other_hand
