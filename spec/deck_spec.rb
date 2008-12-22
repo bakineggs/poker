@@ -31,3 +31,18 @@ describe Deck, '#next' do
     }.should raise_error(IndexError)
   end
 end
+
+describe Deck, '#shuffle' do
+  it 'should allow you to take out more cards' do
+    deck = Deck.new
+    deck.next 52
+    lambda {
+      deck.shuffle.next 52
+    }.should_not raise_error
+  end
+
+  it 'should change the order of the cards' do
+    deck = Deck.new
+    deck.next(52).should_not == deck.shuffle.next(52)
+  end
+end

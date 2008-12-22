@@ -10,6 +10,8 @@ class Deck
 
   def shuffle
     @cards = @cards.sort_by {rand}
+    @card_index = 0
+    self
   end
 
   def next(quantity = 1)
