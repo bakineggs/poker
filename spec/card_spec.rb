@@ -78,3 +78,15 @@ describe Card, '#value' do
     end
   end
 end
+
+describe Card, '#<=>' do
+  it 'should order the cards by value' do
+    Card.new('Spades', 'Ace').should > Card.new('Spades', 'King')
+    Card.new('Spades', 'King').should > Card.new('Spades', 'Queen')
+    Card.new('Spades', 'Queen').should > Card.new('Spades', 'Jack')
+    Card.new('Spades', 'Jack').should > Card.new('Spades', '10')
+    (2..9).each do |value|
+      Card.new('Spades', value+1).should > Card.new('Spades', value)
+    end
+  end
+end
