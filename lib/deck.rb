@@ -12,9 +12,8 @@ class Deck
     @cards = @cards.sort_by {rand}
   end
 
-  def next_card
-    card = @cards[@card_index]
-    @card_index += 1
-    card
+  def next(quantity = 1)
+    raise IndexError if @card_index + quantity > 52
+    @cards[@card_index...(@card_index += quantity)]
   end
 end
