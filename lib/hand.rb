@@ -35,9 +35,7 @@ module Poker
     end
 
     def straight?
-      @straight ||= straight_cards.any? do |cards|
-        cards.length >= 5
-      end
+      @straight ||= !straight_cards.empty?
     end
 
     def set?
@@ -57,6 +55,12 @@ module Poker
     def four_to_flush?
       @four_to_flush ||= suited_cards.any? do |cards|
         cards.length >= 4
+      end
+    end
+
+    def open_ended?
+      @open_ended ||= straight_cards(4).any? do |cards|
+        cards.first.face != 'Ace' && cards.last.face != 'Ace'
       end
     end
 
@@ -131,13 +135,14 @@ module Poker
         end
       end
 
-      def straight_cards
-        @straight_cards ||= (1..10).map do |low| # straight can start at a low ace up to a 10
-          high = low + 4
+      def straight_cards(length = 5)
+        @straight_cards ||= {}
+        @straight_cards[length] ||= (1..14-(length-1)).map do |low| # straight can start at a low ace up to a 10
+          high = low + (length - 1)
           cards = (low..high).map do |value|
             @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
           end.compact
-        end.select{|cards| cards.length == 5}
+        end.select{|cards| cards.length == length}
       end
   end
 end

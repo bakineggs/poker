@@ -342,6 +342,46 @@ module Poker
       end
     end
 
+    describe 'open ended' do
+      before do
+        @open_ended = Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Spades', '9'),
+          Card.new('Clubs', '8'),
+          Card.new('Spades', '7'),
+          Card.new('Spades', '6')
+        )
+      end
+
+      it 'should be open ended' do
+        @open_ended.should be_open_ended
+      end
+
+      it 'should not be a straight' do
+        @open_ended.should_not be_straight
+      end
+
+      it 'should not include Ace through 4' do
+        Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Hearts', '4'),
+          Card.new('Diamonds', '8')
+        ).should_not be_open_ended
+      end
+
+      it 'should not include Jack through Ace' do
+        Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'King'),
+          Card.new('Spades', 'Queen'),
+          Card.new('Hearts', 'Jack'),
+          Card.new('Diamonds', '8')
+        ).should_not be_open_ended
+      end
+    end
+
     describe 'rankings' do
       before do
         @highest_quads = Hand.new(
