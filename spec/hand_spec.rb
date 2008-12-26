@@ -434,6 +434,72 @@ module Poker
       end
     end
 
+    describe 'double gutshot' do
+      it 'should include 2 1-card gaps between 1, 3, and 1 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '6'),
+          Card.new('Spades', '7'),
+          Card.new('Hearts', '8'),
+          Card.new('Diamonds', '10')
+        ).should be_double_gutshot
+      end
+
+      it 'should include 2 1-card gaps between 2, 2, and 2 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Spades', '7'),
+          Card.new('Hearts', '8'),
+          Card.new('Diamonds', '10'),
+          Card.new('Hearts', 'Jack')
+        ).should be_double_gutshot
+      end
+
+      it 'should include 2 1-card gaps between 3, 1, and 3 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Spades', '6'),
+          Card.new('Hearts', '8'),
+          Card.new('Diamonds', '10'),
+          Card.new('Hearts', 'Jack'),
+          Card.new('Clubs', 'Queen')
+        ).should be_double_gutshot
+      end
+
+      it 'should not include 2-card gaps between 2 cards and 3 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Spades', '8'),
+          Card.new('Hearts', '9'),
+          Card.new('Diamonds', '10')
+        ).should_not be_double_gutshot
+      end
+
+      it 'should not include 2-card gaps between 3 cards and 2 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Spades', '6'),
+          Card.new('Hearts', '9'),
+          Card.new('Diamonds', '10')
+        ).should_not be_double_gutshot
+      end
+
+      it 'should not include 1-card gaps between 3 cards and 3 cards' do
+        Hand.new(
+          Card.new('Spades', '4'),
+          Card.new('Clubs', '5'),
+          Card.new('Spades', '6'),
+          Card.new('Clubs', '8'),
+          Card.new('Hearts', '9'),
+          Card.new('Diamonds', '10')
+        ).should_not be_double_gutshot
+      end
+    end
+
     describe 'rankings' do
       before do
         @highest_quads = Hand.new(

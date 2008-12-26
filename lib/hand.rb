@@ -59,13 +59,17 @@ module Poker
     end
 
     def open_ended?
-      @open_ended ||= straight_cards(4, 4).any? do |cards|
+      @open_ended ||= straight_cards(4).any? do |cards|
         cards.first.face != 'Ace' && cards.last.face != 'Ace'
       end
     end
 
     def gutshot?
-      @gutshot ||= !straight_cards(5, 4).empty?
+      @gutshot ||= !gutshot_cards.empty?
+    end
+
+    def double_gutshot?
+      @double_gutshot ||= gutshot_cards.length >= 2
     end
 
     def cards
@@ -139,15 +143,23 @@ module Poker
         end
       end
 
-      def straight_cards(distance = 5, quantity = 5)
+      def straight_cards(length = 5)
         @straight_cards ||= {}
-        @straight_cards[distance] ||= {}
-        @straight_cards[distance][quantity] ||= (1..14-(distance-1)).map do |low| # straight can start at a low ace up to a 10
-          high = low + (distance - 1)
+        @straight_cards[length] ||= (1..14-(length-1)).map do |low| # straight can start at a low ace up to a 10
+          high = low + (length - 1)
           cards = (low..high).map do |value|
             @cards.find{|card| card.value % 13 == value % 13} # %13 allows an ace to be high or low
           end.compact
-        end.select{|cards| cards.length == quantity}
+        end.select{|cards| cards.length == length}
+      end
+
+      def gutshot_cards
+        @gutshot_cards ||= (1..10).map do |low|
+          high = low + 4
+          (low..high).reject do |value|
+            @cards.find{|card| card.value % 13 == value % 13}
+          end
+        end.reject{|cards| cards.length != 1}.uniq.flatten
       end
   end
 end
