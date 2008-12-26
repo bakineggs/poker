@@ -382,6 +382,58 @@ module Poker
       end
     end
 
+    describe 'gutshot' do
+      it 'should include 1-card gaps between 1 card and 3 others' do
+        Hand.new(
+          Card.new('Spades', 'Jack'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '5'),
+          Card.new('Hearts', '4'),
+          Card.new('Diamonds', '6')
+        ).should be_gutshot
+      end
+
+      it 'should include 1-card gaps between 2 cards and 2 others' do
+        Hand.new(
+          Card.new('Spades', 'Jack'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '5'),
+          Card.new('Hearts', '3'),
+          Card.new('Diamonds', '6')
+        ).should be_gutshot
+      end
+
+      it 'should include 1-card gaps between 3 cards and 1 other' do
+        Hand.new(
+          Card.new('Spades', 'Jack'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Hearts', '4'),
+          Card.new('Diamonds', '6')
+        ).should be_gutshot
+      end
+
+      it 'should include Ace through 4' do
+        Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', '2'),
+          Card.new('Spades', '3'),
+          Card.new('Hearts', '4'),
+          Card.new('Diamonds', '8')
+        ).should be_gutshot
+      end
+
+      it 'should include Jack through Ace' do
+        Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Clubs', 'King'),
+          Card.new('Spades', 'Queen'),
+          Card.new('Hearts', 'Jack'),
+          Card.new('Diamonds', '8')
+        ).should be_gutshot
+      end
+    end
+
     describe 'rankings' do
       before do
         @highest_quads = Hand.new(
