@@ -17,7 +17,7 @@ module Poker
 
     it 'should not give out the same card(s) on subsequent calls' do
       deck = Deck.new
-      count = rand 10
+      count = rand(10)+1
       deck.next(count).should_not == deck.next(count)
     end
 
