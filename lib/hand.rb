@@ -54,6 +54,12 @@ module Poker
       @pair ||= matched_cards.length >= 1
     end
 
+    def four_to_flush?
+      @four_to_flush ||= suited_cards.any? do |cards|
+        cards.length >= 4
+      end
+    end
+
     def cards
       @cards
     end

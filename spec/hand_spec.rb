@@ -322,6 +322,26 @@ module Poker
       end
     end
 
+    describe 'four to flush' do
+      before do
+        @four_to_flush = Hand.new(
+          Card.new('Spades', 'Ace'),
+          Card.new('Spades', '10'),
+          Card.new('Clubs', '8'),
+          Card.new('Spades', '7'),
+          Card.new('Spades', '6')
+        )
+      end
+
+      it 'should be four to a flush' do
+        @four_to_flush.should be_four_to_flush
+      end
+
+      it 'should not be a flush' do
+        @four_to_flush.should_not be_flush
+      end
+    end
+
     describe 'rankings' do
       before do
         @highest_quads = Hand.new(
