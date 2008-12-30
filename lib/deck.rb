@@ -1,5 +1,7 @@
 module Poker
   class Deck
+    attr_accessor :cards
+
     def initialize
       @cards = Card::SUITS.map do |suit|
         Card::FACES.map do |value|
