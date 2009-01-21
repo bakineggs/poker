@@ -1,6 +1,7 @@
 module Poker
   class Hand
     include Comparable
+    attr_reader :cards
 
     def initialize(*hands_or_cards)
       @cards = hands_or_cards.map do |hand_or_card|
@@ -70,10 +71,6 @@ module Poker
 
     def double_gutshot?
       @double_gutshot ||= gutshot_cards.length >= 2
-    end
-
-    def cards
-      @cards
     end
 
     def <=> other_hand
