@@ -20,8 +20,7 @@ module Poker
     }
     FACES = VALUES.keys
 
-    attr_accessor :value
-    attr_accessor :suit
+    attr_reader :value, :suit
 
     def initialize(suit, face_or_value)
       self.suit = suit
@@ -36,5 +35,8 @@ module Poker
     def <=> other_card
       value <=> other_card.value
     end
+
+    private
+      attr_writer :value, :suit
   end
 end
