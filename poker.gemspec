@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "poker"
-  s.version  = "1.2"
-  s.date     = "2009-01-21"
+  s.version  = "1.2.1"
+  s.date     = "2009-02-14"
   s.summary  = "A library for constructing and comparing poker hands. Also provides a deck of cards."
   s.email    = "dan@bakineggs.com"
   s.homepage = "http://github.com/danbarry/poker"

@@ -1,6 +1,6 @@
 module Poker
   class Deck
-    attr_accessor :cards
+    attr_reader :cards
 
     def initialize
       @cards = Card::SUITS.map do |suit|
@@ -21,5 +21,8 @@ module Poker
       raise IndexError if @card_index + quantity > 52
       @cards[@card_index...(@card_index += quantity)]
     end
+
+    private
+      attr_writer :cards
   end
 end
