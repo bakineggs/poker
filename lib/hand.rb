@@ -3,12 +3,14 @@ module Poker
     include Comparable
     attr_reader :cards
 
-    def initialize(*hands_or_cards)
-      @cards = hands_or_cards.map do |hand_or_card|
-        if hand_or_card.is_a?(Hand)
-          hand_or_card.cards
-        else
-          hand_or_card
+    def initialize *params
+      @cards = params.map do |param|
+        if param.is_a? Hand
+          param.cards
+        elsif param.is_a? Card
+          param
+        elsif param.is_a? String
+          param.split(' ').map {|str| Card.new str}
         end
       end.flatten.uniq.sort.reverse
     end

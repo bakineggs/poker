@@ -36,6 +36,14 @@ module Poker
     it 'should ignore the same card if given in a combo of cards and hands' do
       Hand.new(Hand.new(*@cards[0..3]), *@cards[2..5]).cards.sort.should == @cards.sort
     end
+
+    it 'should accept a string of card values' do
+      Hand.new('6h Qs 4d 7c Jc 8s').should == Hand.new(*@cards)
+    end
+
+    it 'should accept string of card calues intermixed with cards and hands' do
+      Hand.new('7c Jc', Hand.new(@cards[5]), *@cards[0..2]).should == Hand.new(*@cards)
+    end
   end
 
   describe Hand do

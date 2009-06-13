@@ -26,6 +26,23 @@ module Poker
       }.should_not raise_error
     end
 
+    it 'should accept short representations of a card' do
+      faces = {'Ace' => 'A', 'King' => 'K', 'Queen' => 'Q', 'Jack' => 'J', '10' => 'T'}
+      (2..9).each {|value| faces[value.to_s] = value.to_s }
+      {'Spades' => 's', 'Diamonds' => 'd', 'Clubs' => 'c', 'Hearts' => 'h'}.each do |suit, suit_short|
+        faces.each do |face, face_short|
+          Card.new("#{face_short}#{suit_short}").should == Card.new(suit, face)
+        end
+      end
+    end
+
+    it 'should reject unknown short representations' do
+      lambda { Card.new 'Ar' }.should raise_error(ArgumentError)
+      lambda { Card.new '1s' }.should raise_error(ArgumentError)
+      lambda { Card.new '11s' }.should raise_error(ArgumentError)
+      lambda { Card.new 'AsJc' }.should raise_error(ArgumentError)
+    end
+
     it 'should reject unknown card names' do
       lambda { Card.new('Spades', '1') }.should raise_error(ArgumentError)
       lambda { Card.new('Spades', '11') }.should raise_error(ArgumentError)
