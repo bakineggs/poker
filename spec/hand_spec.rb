@@ -82,13 +82,7 @@ module Poker
 
       describe 'wheel' do
         it 'should be a straight flush' do
-          Hand.new(
-            Card.new('Spades', 'Ace'),
-            Card.new('Spades', '2'),
-            Card.new('Spades', '3'),
-            Card.new('Spades', '4'),
-            Card.new('Spades', '5')
-          ).should be_straight_flush
+          Hand.new('As 2s 3s 4s 5s').should be_straight_flush
         end
       end
     end
@@ -173,13 +167,7 @@ module Poker
 
       describe 'wheel' do
         it 'should be a straight' do
-          Hand.new(
-            Card.new('Spades', 'Ace'),
-            Card.new('Clubs', '2'),
-            Card.new('Spades', '3'),
-            Card.new('Hearts', '4'),
-            Card.new('Diamonds', '5')
-          ).should be_straight
+          Hand.new('As 2c 3s 4h 5d').should be_straight
         end
       end
     end
