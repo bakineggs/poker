@@ -5,12 +5,10 @@ module Poker
 
     def initialize *params
       @cards = params.map do |param|
-        if param.is_a? Hand
-          param.cards
-        elsif param.is_a? Card
-          param
-        elsif param.is_a? String
-          param.split(' ').map {|str| Card.new str}
+        case param
+        when Hand then param.cards
+        when Card then param
+        when String then param.split(' ').map {|str| Card.new str}
         end
       end.flatten.uniq.sort.reverse
     end
@@ -142,7 +140,7 @@ module Poker
         end
       end
 
-      def straight_cards(length = 5)
+      def straight_cards length = 5
         @straight_cards ||= {}
         @straight_cards[length] ||= (1..14-(length-1)).map do |low| # straight can start at a low ace up to a 10
           high = low + (length - 1)

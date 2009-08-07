@@ -23,7 +23,7 @@ module Poker
 
     it 'should eventually run out of cards' do
       lambda {
-        Deck.new.next(53)
+        Deck.new.next 53
       }.should raise_error(IndexError)
       lambda {
         deck = Deck.new

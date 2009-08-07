@@ -46,8 +46,8 @@ module Poker
     def initialize suit_or_chars, face_or_value = nil
       if face_or_value.nil?
         raise ArgumentError unless suit_or_chars.length == 2
-        face_or_value = FACES_SHORTHAND.index(suit_or_chars[0, 1])
-        suit_or_chars = SUITS_SHORTHAND.index(suit_or_chars[1, 1])
+        face_or_value = FACES_SHORTHAND.index suit_or_chars[0, 1]
+        suit_or_chars = SUITS_SHORTHAND.index suit_or_chars[1, 1]
       end
       self.suit = suit_or_chars
       self.value = VALUES[face_or_value] || face_or_value
@@ -55,7 +55,7 @@ module Poker
     end
 
     def face
-      VALUES.index(value)
+      VALUES.index value
     end
 
     def <=> other_card
