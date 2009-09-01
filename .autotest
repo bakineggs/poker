@@ -1,0 +1,15 @@
+# Autospec doesn't do anything useful with Autotest's 'libs' property,
+# so we'll hack basic support in ourselves. Ugh.
+
+class Autotest::Rspec
+  alias busted_make_test_cmd make_test_cmd
+
+  def make_test_cmd files_to_test
+    cmd = busted_make_test_cmd files_to_test
+    cmd.sub(ruby, "#{ruby} -I #{libs}")
+  end
+end
+
+Autotest.add_hook :initialize do |at|
+  at.libs = ".:lib:spec"
+end

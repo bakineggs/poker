@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/helper'
+require "helper"
 
 describe Poker do
   it 'should provide its version' do
