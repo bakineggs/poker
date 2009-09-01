@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.has_rdoc = false
   s.authors  = ["Dan Barry"]
   s.files    = [
-		"lib/card.rb", 
-		"lib/deck.rb", 
-		"lib/hand.rb",
+    "lib/poker/card.rb",
+    "lib/poker/deck.rb",
+    "lib/poker/hand.rb",
     "lib/poker.rb"
   ]
   s.test_files = [

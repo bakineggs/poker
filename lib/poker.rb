@@ -1,3 +1,7 @@
-require File.dirname(__FILE__) + '/card'
-require File.dirname(__FILE__) + '/hand'
-require File.dirname(__FILE__) + '/deck'
+require 'poker/card'
+require 'poker/hand'
+require 'poker/deck'
+
+module Poker
+  VERSION = '1.3'
+end

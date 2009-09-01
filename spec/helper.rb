@@ -1,3 +1,4 @@
 require 'rubygems'
 require 'spec'
-require File.dirname(__FILE__) + '/../lib/poker'
+$:.unshift File.dirname(__FILE__) + '/../lib'
+require 'poker'
