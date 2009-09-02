@@ -1,4 +1,4 @@
-require "helper"
+require 'poker'
 
 module Poker
   describe Card, '#new' do

@@ -1,4 +1,4 @@
-require "helper"
+require 'poker'
 
 module Poker
   describe Deck, '#next' do

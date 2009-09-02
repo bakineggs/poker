@@ -1,4 +1,4 @@
-require "helper"
+require 'poker'
 
 describe Poker do
   it 'should provide its version' do
