@@ -107,5 +107,16 @@ module Poker
         Card.new('Spades', value+1).should > Card.new('Spades', value)
       end
     end
+
+    describe Card, '#to_s' do
+      it 'should output the short representation of the card' do
+        faces = {'Ace' => 'A', 'King' => 'K', 'Queen' => 'Q', 'Jack' => 'J', '10' => 'T'}
+        {'Spades' => 's', 'Diamonds' => 'd', 'Clubs' => 'c', 'Hearts' => 'h'}.each do |suit, suit_short|
+          faces.each do |face, face_short|
+            Card.new(suit, face).to_s.should == "#{face_short}#{suit_short}"
+          end
+        end
+      end
+    end
   end
 end

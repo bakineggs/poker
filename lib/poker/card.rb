@@ -62,6 +62,10 @@ module Poker
       value <=> other_card.value
     end
 
+    def to_s
+      "#{FACES_SHORTHAND[face]}#{SUITS_SHORTHAND[suit]}"
+    end
+
     private
       attr_writer :value, :suit
   end
