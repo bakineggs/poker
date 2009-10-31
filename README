@@ -1,0 +1,65 @@
+= poker
+
+  A library for constructing and comparing poker hands.
+  It also provides a deck of cards.
+
+== Usage
+
+  Cards can be constructed using a suit and a face, a suit and a value, or a short representation of a card.
+
+    # The Ace of Spades
+    Card.new('Spades', 'Ace') ==
+    Card.new('Spades', 14) ==
+    Card.new('As')
+
+    # The 8 of Hearts
+    Card.new('Hearts', '8') ==
+    Card.new('Hearts', 8) ==
+    Card.new('8h')
+
+  Card#to_s gives the short representation of a card 
+
+    Card.new('Clubs', '7').to_s == '7c'
+    Card.new('Diamonds', 'King').to_s == 'Kd'
+
+  Hands can be constructed using any combination of cards, string representations of cards, and other hands.
+
+    Hand.new(Card.new('As'), 'Ah Kd Qc', Card.new('Qh'))
+    Hand.new(Card.new('As'), Hand.new('Ah Kd'), 'Qc', Card.new('Qh'))
+
+  Hand#to_s gives the short representation of a hand
+
+    hand = Hand.new(Card.new('As'), 'Ah Kd Qc', Card.new('Qh'))
+    hand.to_s # 'As Ah Kd Qc Qh' or similar (card order is not guaranteed)
+
+  Hands can be compared to each other.
+
+    Hand.new('As Ac Kh Qd Qc') > Hand.new('5s 9c 3h 5s 7d') # true
+
+  A number of properties can be asked about a hand.
+
+    # each method returns true or false
+    straight_flush?
+    quads?
+    full_house?
+    flush?
+    straight?
+    set?
+    two_pair?
+    pair?
+    four_to_flush?
+    open_ended?
+    gutshot?
+    double_gutshot?
+
+  A deck can provide cards to play with.
+
+    deck = Deck.new
+    while playing do
+      deck.shuffle
+      player_cards = [Deck.next(2), Deck.next(2)]
+      board_cards = Deck.next(3) # flop
+      board_cards += Deck.next(1) # turn
+      board_cards += Deck.next(1) # river
+      winner = player_cards.map{ |p| p + board_cards }.sort.first
+    end
