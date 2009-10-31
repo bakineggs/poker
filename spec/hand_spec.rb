@@ -46,6 +46,23 @@ module Poker
     end
   end
 
+  describe Hand, '#to_s' do
+    it 'should return a a short representation of the cards in the hand' do
+      cards = [
+        Card.new('Hearts', '6'),
+        Card.new('Spades', 'Queen'),
+        Card.new('Diamonds', '4'),
+        Card.new('Clubs', '7'),
+        Card.new('Diamonds', 'Jack'),
+        Card.new('Spades', '8')
+      ]
+      to_s = Hand.new(*cards).to_s
+      cards.each do |card|
+        to_s.match(/(^| )#{card.to_s}( |$)/).should be_true
+      end
+    end
+  end
+
   describe Hand do
     before do
       @straight_flush = Hand.new '6s 5s 9s 7s 8s'

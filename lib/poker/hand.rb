@@ -82,6 +82,10 @@ module Poker
       end
     end
 
+    def to_s
+      cards.map(&:to_s).join ' '
+    end
+
     protected
       def rank
         @rank ||= if straight_flush?: 8
