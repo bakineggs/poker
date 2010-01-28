@@ -61,5 +61,5 @@
       board_cards = Deck.next(3) # flop
       board_cards += Deck.next(1) # turn
       board_cards += Deck.next(1) # river
-      winner = player_cards.map{ |p| p + board_cards }.sort.first
+      winning_hand = player_cards.map{ |p| Hand.new *(p + board_cards) }.sort.first
     end
