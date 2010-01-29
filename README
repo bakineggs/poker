@@ -34,7 +34,14 @@
 
   Hands can be compared to each other.
 
-    Hand.new('As Ac Kh Qd Qc') > Hand.new('5s 9c 3h 5s 7d') # true
+    # two pair beats one pair
+    Hand.new('As Ac Kh Qd Qc') > Hand.new('5s 5s 9c 3h 7d') # true
+
+    # flush beats a straight
+    Hand.new('7h 2h Jh Th 8h') > Hand.new('6s 7c 8d 9s Tc') # true
+
+    # only the best 5-card hand is considered
+    Hand.new('Jc Qh Kd Ks Ah Ac') == Hand.new('Tc Qh Kd Ks Ah Ac') # true
 
   A number of properties can be asked about a hand.
 
