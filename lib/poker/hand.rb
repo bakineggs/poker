@@ -14,63 +14,63 @@ module Poker
     end
 
     def straight_flush?
-      @straight_flush ||= suited_cards.any? do |cards|
+      suited_cards.any? do |cards|
         Hand.new(*cards).straight?
       end
     end
 
     def quads?
-      @quads ||= matched_cards.any? do |cards|
+      matched_cards.any? do |cards|
         cards.length >= 4
       end
     end
 
     def full_house?
-      @full_house ||= set? && two_pair?
+      set? && two_pair?
     end
 
     def flush?
-      @flush ||= suited_cards.any? do |cards|
+      suited_cards.any? do |cards|
         cards.length >= 5
       end
     end
 
     def straight?
-      @straight ||= !straight_cards.empty?
+      !straight_cards.empty?
     end
 
     def set?
-      @set ||= matched_cards.any? do |cards|
+      matched_cards.any? do |cards|
         cards.length >= 3
       end
     end
 
     def two_pair?
-      @two_pair ||= matched_cards.length >= 2
+      matched_cards.length >= 2
     end
 
     def pair?
-      @pair ||= matched_cards.length >= 1
+      matched_cards.length >= 1
     end
 
     def four_to_flush?
-      @four_to_flush ||= suited_cards.any? do |cards|
+      suited_cards.any? do |cards|
         cards.length >= 4
       end
     end
 
     def open_ended?
-      @open_ended ||= straight_cards(4).any? do |cards|
+      straight_cards(4).any? do |cards|
         cards.first.face != 'Ace' && cards.last.face != 'Ace'
       end
     end
 
     def gutshot?
-      @gutshot ||= !gutshot_cards.empty?
+      !gutshot_cards.empty?
     end
 
     def double_gutshot?
-      @double_gutshot ||= gutshot_cards.length >= 2
+      gutshot_cards.length >= 2
     end
 
     def <=> other_hand
